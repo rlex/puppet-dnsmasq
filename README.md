@@ -15,7 +15,6 @@ It features some advanced features like:
 ### TODO
 
 * Rewrite OS detection based on $::OSFamily
-* Modulefile for puppet module repository
 
 ### Basic class
 (All possible options shown here)

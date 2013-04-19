@@ -1,5 +1,5 @@
 # Create an dnsmasq stub zone for caching upstream name resolvers.
-define dnsmasq::staticdns (
+define dnsmasq::address (
   $ip,
 ) {
   include dnsmasq::params

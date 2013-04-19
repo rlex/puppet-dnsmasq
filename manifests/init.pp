@@ -2,12 +2,14 @@ class dnsmasq (
   $interface = 'eth0',
   $domain = 'int.lan',
   $expand_hosts = true,
+  $port = '53',
   $enable_tftp = false,
   $tftp_root = '/var/lib/tftpboot',
   $dhcp_boot = 'pxelinux.0',
   $strict_order = true,
   $domain_needed = true,
   $bogus_priv = true,
+  $no_negcache = false,
 ) {
   include dnsmasq::params
   include concat::setup

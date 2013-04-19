@@ -7,12 +7,16 @@ bogus-priv
 <% if strict_order -%>
 strict-order
 <% end -%>
+port=<%= port %>
 <% if enable_tftp -%>
 dhcp-boot=<%= dhcp_boot %>
 enable-tftp
 tftp-root=<%= tftp_root %>
 <% end %>
 interface=<%= interface %>
+<% if no_negcache -%>
+no-negcache
+<% end %>
 <% if expand_hosts -%>
 expand-hosts
 <% end -%>

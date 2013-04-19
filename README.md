@@ -48,7 +48,7 @@ dnsmasq::dhcp { 'dhcp':
 (Please be aware that example-host will also be used as DNS name)
 
 ```puppet
-dnsmasq::staticdhcp { 'example-host':
+dnsmasq::dhcpstatic { 'example-host':
   mac  => 'DE:AD:BE:EF:CA:FE',
   macip => '192.168.1.10',
 }

@@ -14,7 +14,7 @@ class dnsmasq (
 
   # Localize some variables
   $dnsmasq_package     = $dnsmasq::params::dnsmasq_package
-  $dnsmasq_confdir     = $dnsmasq::params::dnsmasq_conffile
+  $dnsmasq_conffile     = $dnsmasq::params::dnsmasq_conffile
   $dnsmasq_logdir      = $dnsmasq::params::dnsmasq_logdir
   $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
 

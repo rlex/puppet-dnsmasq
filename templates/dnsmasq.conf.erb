@@ -8,14 +8,14 @@ bogus-priv
 strict-order
 <% end -%>
 <% if enable_tftp -%>
-dhcp-boot=<% dhcp_boot -%>
+dhcp-boot=<%= dhcp_boot %>
 enable-tftp
-tftp-root=<% tftp_root -%>
+tftp-root=<%= tftp_root %>
 <% end %>
-interface=<% interface %>
+interface=<%= interface %>
 <% if expand_hosts -%>
 expand-hosts
 <% end -%>
 <% if domain %>
-domain=<% domain %>
+domain=<%= domain %>
 <% end %>

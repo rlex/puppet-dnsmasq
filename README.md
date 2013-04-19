@@ -12,18 +12,27 @@ It features some advanced features like:
 * Support for adding static DNS records (IP -> hostname binding)
 * Support for DHCP options (WIP)
 
+
+### TODO
+
+* Support for DHCP options
+* Rewrite OS detection based on $::OSFamily
+* Modulefile for puppet module repository
+
 ### Basic class
 
 ```puppet
 class { 'dnsmasq':
   interface     => 'lo',
   domain        => 'int.lan',
+  port          => '53',
   expand_hosts  => true,
-  enable_tftp   => false,
+  enable_tftp   => true,
   tftp_root     => '/var/lib/tftpboot',
   dhcp_boot     => 'pxelinux.0',
   domain_needed => true,
   bogus_priv    => true,
+  no_negcache   => true,
 }
 ```
 

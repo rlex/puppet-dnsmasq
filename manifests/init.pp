@@ -22,10 +22,9 @@ class dnsmasq (
   $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
 
 
-  #FIXME: top-scope variable being used without an explicit namespace 
   package { $dnsmasq_package:
     ensure   => installed,
-    provider => $provider,
+    provider => $::provider,
   }
 
   service { $dnsmasq_service:

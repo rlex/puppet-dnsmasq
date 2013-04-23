@@ -1,3 +1,4 @@
+#Detect OS, set os-specific parameters
 class dnsmasq::params {
   case $::operatingsystem {
     'ubuntu', 'debian': {

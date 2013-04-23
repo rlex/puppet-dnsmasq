@@ -6,10 +6,10 @@ define dnsmasq::dhcpoption (
 
   $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
 
-  concat::fragment { "dnsmasq-dhcpoption-$name":
+  concat::fragment { "dnsmasq-dhcpoption-${name}":
     order   => '02',
-    target  => "${dnsmasq_conffile}",
-    content => template("dnsmasq/dhcpoption.erb"),
+    target  => $dnsmasq_conffile,
+    content => template('dnsmasq/dhcpoption.erb'),
   }
 
 }

@@ -1,3 +1,4 @@
+#Primary class with options
 class dnsmasq (
   $interface = 'eth0',
   $domain = 'int.lan',
@@ -20,6 +21,8 @@ class dnsmasq (
   $dnsmasq_logdir      = $dnsmasq::params::dnsmasq_logdir
   $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
 
+
+  #FIXME: top-scope variable being used without an explicit namespace 
   package { $dnsmasq_package:
     ensure   => installed,
     provider => $provider,
@@ -35,12 +38,12 @@ class dnsmasq (
 
   concat::fragment { 'dnsmasq-header':
     order   => '00',
-    target  => "${dnsmasq_conffile}",
+    target  => $dnsmasq_conffile,
     content => template('dnsmasq/dnsmasq.conf.erb'),
     require => Package[$dnsmasq_package],
   }
 
-  concat { "${dnsmasq_conffile}":
+  concat { $dnsmasq_conffile:
     notify  => Service[$dnsmasq_service],
     require => Package[$dnsmasq_package],
   }

@@ -1,0 +1,15 @@
+### 1.1.0
+
+* [API] dnsmasq::dhcpoption now uses $ip instead of $macip, update your configs
+* [MISC] Fixed all style-errors in manifests
+* [MISC] More adequate templates names
+* [MISC] Warning about puppet management on top of dnsmasq.conf
+* [FEATURE] Error message about unsupported systems
+
+### 1.0.1
+
+* [BUG] Hotfix for documentation, wrong class name in ::staticdhcp
+
+### 1.0.0
+
+* [INFO] Initial release

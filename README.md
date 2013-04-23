@@ -5,19 +5,28 @@ I wrote this module in need of managing bunch of servers running dnsmasq.
 It features some advanced features like:
 
 * Basic dnsmasq management (service, installation)
-* Cross-os support (tested on rpm- and deb-based distros. Should also support freebsd)
-* Loads of options in basic config (ie TFTP) If you need any additional option that does not supported in this module, just ping me
+* Cross-OS support (Debian, Ubuntu, RHEL, FreeBSD)
+* Loads of options in basic config (ie TFTP)
+(If you need any additional option that does not supported in this module, just ping me)
 * Support for DHCP configuration.
 * Support for adding static DHCP records (MAC -> IP binding)
 * Support for adding static DNS records (IP -> hostname binding)
 * Support for DHCP options
+
+### DEPENDENCIES
+
+* puppet >= 2.6
+* puppetlabs/stdlib >= 2.0.0
 
 ### TODO
 
 * Rewrite OS detection based on $::OSFamily
 
 ### Basic class
-(All possible options shown here)
+
+Will install dnsmasq to act as DNS and TFTP (if specified) server
+
+All possible options shown here
 
 ```puppet
 class { 'dnsmasq':
@@ -36,6 +45,8 @@ class { 'dnsmasq':
 
 ### DHCP server configuration
 
+Will add DHCP support to dnsmasq.
+
 ```puppet
 dnsmasq::dhcp { 'dhcp': 
   dhcp_start => '192.168.1.100',
@@ -45,15 +56,19 @@ dnsmasq::dhcp { 'dhcp':
 ```
 
 ### Static DHCP record configuration
-(Please be aware that example-host will also be used as DNS name)
+
+Will add static DHCP record to DHCP server with hostname.
+Please be aware that example-host will also be used as DNS name.
 
 ```puppet
 dnsmasq::dhcpstatic { 'example-host':
   mac  => 'DE:AD:BE:EF:CA:FE',
-  macip => '192.168.1.10',
+  ip => '192.168.1.10',
 }
 ```
 ### Static DNS record configuration
+
+Will add static A record, this record will always override upstream data
 
 ```puppet
 dnsmasq::address { "example-host-dns.int.lan":
@@ -61,7 +76,13 @@ dnsmasq::address { "example-host-dns.int.lan":
 }
 ```
 
-### DHCP option configuration 
+### DHCP option configuration
+
+Will add dhcp option. Can be used for all types of options, ie:
+
+* numeric ( dnsmasq::dhcpoption { '53': ... }
+* ipv4-option ( dnsmasq::dhcpoption { 'option:router': ... }
+* ipv6-option ( dnsmasq::dhcpoption { 'option6:dns-server': ... }
 
 ```puppet
 dnsmasq::dhcpoption { 'option:router':

@@ -1,5 +1,5 @@
 class dnsmasq::params {
-  case $operatingsystem {
+  case $::operatingsystem {
     'ubuntu', 'debian': {
       $dnsmasq_conffile = '/etc/dnsmasq.conf'
       $dnsmasq_logdir = '/var/log'
@@ -23,6 +23,9 @@ class dnsmasq::params {
       $dnsmasq_logdir  = '/var/log/dnsmasq'
       $dnsmasq_service = 'dnsmasq'
       $dnsmasq_package = 'dns/dnsmasq'
+    }
+    default: {
+      fail("Module ${module_name} is not supported on ${::operatingsystem}")
     }
   }
 }

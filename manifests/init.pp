@@ -11,6 +11,7 @@ class dnsmasq (
   $domain_needed = true,
   $bogus_priv = true,
   $no_negcache = false,
+  $no_hosts = false,
 ) {
   include dnsmasq::params
   include concat::setup

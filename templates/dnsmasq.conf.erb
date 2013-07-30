@@ -23,6 +23,12 @@ no-negcache
 <% if expand_hosts -%>
 expand-hosts
 <% end -%>
+<% if no_hosts -%>
+no-hosts
+<% end -%>
 <% if domain %>
 domain=<%= domain %>
+<% end %>
+<% if @resolv_file %>
+resolv-file=<%= @resolv_file %>
 <% end %>

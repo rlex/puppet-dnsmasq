@@ -29,3 +29,6 @@ no-hosts
 <% if domain %>
 domain=<%= domain %>
 <% end %>
+<% if @resolv_file %>
+resolv-file=<%= @resolv_file %>
+<% end %>

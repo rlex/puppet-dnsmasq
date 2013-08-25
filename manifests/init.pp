@@ -12,7 +12,8 @@ class dnsmasq (
   $bogus_priv = true,
   $no_negcache = false,
   $no_hosts = false,
-  $resolv_file = false
+  $resolv_file = false,
+  $cache_size = 1000
 ) {
   include dnsmasq::params
   include concat::setup

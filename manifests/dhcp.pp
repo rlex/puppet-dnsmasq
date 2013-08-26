@@ -2,6 +2,7 @@
 define dnsmasq::dhcp (
   $dhcp_start,
   $dhcp_end,
+  $netmask,
   $lease_time
 ) {
   include dnsmasq::params

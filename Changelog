@@ -1,3 +1,11 @@
+### 1.1.1
+
+* [FEATURE] Add resolv-file option
+* [FEATURE] Add cache-size option
+* [FEATURE] Add no-hosts option
+* [FEATURE] Add dnsmasq.d config folder support
+* [BUG] Wrong name in puppetforge modulefile
+
 ### 1.1.0
 
 * [API] dnsmasq::dhcpoption now uses $ip instead of $macip, update your configs

@@ -40,6 +40,9 @@ class { 'dnsmasq':
   domain_needed => true,
   bogus_priv    => true,
   no_negcache   => true,
+  no_hosts      => true,
+  resolv_file   => '/etc/resolv.conf',
+  cache_size    => 1000
 }
 ```
 

@@ -54,6 +54,7 @@ Will add DHCP support to dnsmasq.
 dnsmasq::dhcp { 'dhcp': 
   dhcp_start => '192.168.1.100',
   dhcp_end   => '192.168.1.200',
+  netmask    => '255.255.255.0',
   lease_time => '24h'
 }
 ```

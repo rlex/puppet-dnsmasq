@@ -40,6 +40,9 @@ class { 'dnsmasq':
   domain_needed => true,
   bogus_priv    => true,
   no_negcache   => true,
+  no_hosts      => true,
+  resolv_file   => '/etc/resolv.conf',
+  cache_size    => 1000
 }
 ```
 
@@ -51,6 +54,7 @@ Will add DHCP support to dnsmasq.
 dnsmasq::dhcp { 'dhcp': 
   dhcp_start => '192.168.1.100',
   dhcp_end   => '192.168.1.200',
+  netmask    => '255.255.255.0',
   lease_time => '24h'
 }
 ```

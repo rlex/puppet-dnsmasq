@@ -1,6 +1,19 @@
+### 1.1.2
+
+* [FEATURE] DHCP server now supports netmask
+* [API] dnsmasq::dhcp now requires netmask, check readme and update configs.
+
+### 1.1.1
+
+* [FEATURE] Add resolv-file option
+* [FEATURE] Add cache-size option
+* [FEATURE] Add no-hosts option
+* [FEATURE] Add dnsmasq.d config folder support
+* [BUG] Wrong name in puppetforge modulefile
+
 ### 1.1.0
 
-* [API] dnsmasq::dhcpoption now uses $ip instead of $macip, update your configs
+* [API] dnsmasq::dhcpstatic now uses $ip instead of $macip, update your configs
 * [MISC] Fixed all style-errors in manifests
 * [MISC] More adequate templates names
 * [MISC] Warning about puppet management on top of dnsmasq.conf

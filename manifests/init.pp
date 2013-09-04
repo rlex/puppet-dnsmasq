@@ -12,7 +12,9 @@ class dnsmasq (
   $bogus_priv = true,
   $no_negcache = false,
   $no_hosts = false,
-  $resolv_file = false
+  $resolv_file = false,
+  $cache_size = 1000,
+  $confdir_path = false
 ) {
   include dnsmasq::params
   include concat::setup
@@ -22,7 +24,9 @@ class dnsmasq (
   $dnsmasq_conffile     = $dnsmasq::params::dnsmasq_conffile
   $dnsmasq_logdir      = $dnsmasq::params::dnsmasq_logdir
   $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
-
+  if $confdir_path == false {
+    $confdir_path = $dnsmasq::params::dnsmasq_confdir
+  }
 
   package { $dnsmasq_package:
     ensure   => installed,
@@ -35,6 +39,10 @@ class dnsmasq (
     enable    => true,
     hasstatus => false,
     require   => Package[$dnsmasq_package],
+  }
+
+  file { $confdir_path:
+    ensure => 'directory',
   }
 
   concat::fragment { 'dnsmasq-header':

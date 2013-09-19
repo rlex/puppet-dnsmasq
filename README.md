@@ -21,6 +21,7 @@ It features some advanced features like:
 ### TODO
 
 * Rewrite OS detection based on $::OSFamily
+* Add set/tag options to (at least) dhcp-range, dhcp-boot
 
 ### Basic class
 

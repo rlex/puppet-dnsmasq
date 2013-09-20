@@ -1,9 +1,9 @@
-# Create an dnsmasq stub zone for caching upstream name resolvers.
+# Create an dnsmasq dhcp boot (PXE) record for customizing network booting
 define dnsmasq::dhcpboot (
   $paramtag = undef,
   $file,
-  $name,
-  $address,
+  $hostname,
+  $bootserver,
 ) {
   include dnsmasq::params
 

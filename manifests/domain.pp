@@ -1,5 +1,5 @@
-# Create an dnsmasq dhcp option.
-define dnsmasq::dhcpoption (
+# Create an dnsmasq domains.
+define dnsmasq::domain (
   $subnet = undef,
 ) {
   include dnsmasq::params

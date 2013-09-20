@@ -2,7 +2,7 @@
 class dnsmasq (
   $interface = undef,
   $listen_address = undef,
-  $domain = 'int.lan',
+  $domain = undef,
   $expand_hosts = true,
   $port = '53',
   $enable_tftp = false,

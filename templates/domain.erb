@@ -1,3 +1,4 @@
-<% if content != '' -%>
-<%= "domain=#{name}<% if subnet != '' %>,#{subnet}<% end %>\n" -%>
+<% if domain != '' -%>
+  <% subnet = ",#{@subnet}" if @subnet -%>
+domain=<%= "#{@domain},#{subnet}" %>
 <% end -%>

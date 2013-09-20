@@ -1,4 +1,4 @@
 <% if @file != '' -%>
   <% tag = "tag:#{@paramtag}," if @paramtag -%>
-  dhcp-boot=<%= "#{@paramtag}#{@file},#{@hostname},#{@bootserver}" -%>
+dhcp-boot=<%= "#{tag}#{@file},#{@hostname},#{@bootserver}" %>
 <% end -%>

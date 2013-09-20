@@ -1,6 +1,7 @@
 #Primary class with options
 class dnsmasq (
-  $interface = 'eth0',
+  $interface = undef,
+  $listen_address = undef,
   $domain = 'int.lan',
   $expand_hosts = true,
   $port = '53',

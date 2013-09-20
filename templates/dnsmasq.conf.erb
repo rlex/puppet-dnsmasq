@@ -16,7 +16,16 @@ dhcp-boot=<%= dhcp_boot %>
 enable-tftp
 tftp-root=<%= tftp_root %>
 <% end %>
-interface=<%= interface %>
+<% if listen_address.is_a? Array -%>
+<% listen_address.each do || -%><%= "listen-address=#{listen_address}\n" %><% end -%>
+<% elsif listen_address != '' -%>
+<%= "listen-address=#{listen_address}\n" -%>
+<% end -%>
+<% if interface.is_a? Array -%>
+<% interface.each do |interface| -%><%= "interface=#{interface}\n" %><% end -%>
+<% elsif interface != '' -%>
+<%= "interface=#{interface}\n" -%>
+<% end -%>
 <% if no_negcache -%>
 no-negcache
 <% end %>

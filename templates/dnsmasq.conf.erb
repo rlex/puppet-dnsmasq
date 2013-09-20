@@ -1,49 +1,49 @@
 # THIS FILE IS MANAGED BY PUPPET
 # ALL MANUAL CHANGES WILL BE OVERWRITTEN
 
-<% if domain_needed -%>
+<% if @domain_needed -%>
 domain-needed
 <% end %>
-<% if bogus_priv -%>
+<% if @bogus_priv -%>
 bogus-priv
 <% end %>
-<% if strict_order -%>
+<% if @strict_order -%>
 strict-order
 <% end -%>
-port=<%= port %>
-<% if enable_tftp -%>
-dhcp-boot=<%= dhcp_boot %>
+port=<%= @port %>
+<% if @enable_tftp -%>
+dhcp-boot=<%= @dhcp_boot %>
 enable-tftp
-tftp-root=<%= tftp_root %>
+tftp-root=<%= @tftp_root %>
 <% end %>
-<% if listen_address.is_a? Array -%>
-<% listen_address.each do || -%><%= "listen-address=#{listen_address}\n" %><% end -%>
-<% elsif listen_address -%>
-<%= "listen-address=#{listen_address}\n" -%>
+<% if @listen_address.is_a? Array -%>
+<% @listen_address.each do || -%><%= "listen-address=#{@listen_address}\n" %><% end -%>
+<% elsif not @listen_address.nil? -%>
+<%= "listen-address=#{@listen_address}\n" -%>
 <% end -%>
-<% if interface.is_a? Array -%>
-<% interface.each do |interface| -%><%= "interface=#{interface}\n" %><% end -%>
-<% elsif interface != undef -%>
-<%= "interface=#{interface}\n" -%>
+<% if @interface.is_a? Array -%>
+<% @interface.each do |interface| -%><%= "interface=#{@interface}\n" %><% end -%>
+<% elsif not @interface.nil? -%>
+<%= "interface=#{@interface}\n" -%>
 <% end -%>
-<% if no_negcache -%>
+<% if @no_negcache -%>
 no-negcache
 <% end %>
-<% if expand_hosts -%>
+<% if @expand_hosts -%>
 expand-hosts
 <% end -%>
-<% if no_hosts -%>
+<% if @no_hosts -%>
 no-hosts
 <% end -%>
-<% if domain %>
+<% if @domain %>
 domain=<%= domain %>
 <% end %>
 <% if @resolv_file %>
 resolv-file=<%= @resolv_file %>
 <% end %>
-<% if cache_size %>
-cache-size=<%= cache_size %>
+<% if @cache_size %>
+cache-size=<%= @cache_size %>
 <% end %>
-<% if confdir_path %>
-conf-dir=<%= confdir_path %>
+<% if @confdir_path %>
+conf-dir=<%= @confdir_path %>
 <% end %>

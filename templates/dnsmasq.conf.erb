@@ -23,7 +23,7 @@ tftp-root=<%= tftp_root %>
 <% end -%>
 <% if interface.is_a? Array -%>
 <% interface.each do |interface| -%><%= "interface=#{interface}\n" %><% end -%>
-<% elsif interface -%>
+<% elsif interface != undef -%>
 <%= "interface=#{interface}\n" -%>
 <% end -%>
 <% if no_negcache -%>

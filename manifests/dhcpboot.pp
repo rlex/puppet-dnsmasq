@@ -1,6 +1,6 @@
 # Create an dnsmasq stub zone for caching upstream name resolvers.
 define dnsmasq::dhcpboot (
-  $tag = undef,
+  $paramtag = undef,
   $file,
   $name,
   $address,

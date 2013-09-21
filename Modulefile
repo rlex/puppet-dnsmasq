@@ -1,6 +1,7 @@
 name    'lex-dnsmasq'
 version '1.1.2'
 dependency 'puppetlabs/stdlib', '>= 2.2.1'
+dependency 'puppetlabs/concat', '>= 1.0.0'
 source 'git://github.com/rlex/puppet-dnsmasq.git'
 author 'Lex Rivera <me@lex.io>'
 license 'Creative Commons Attribution 3.0 Unported License'

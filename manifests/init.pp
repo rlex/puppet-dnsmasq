@@ -26,7 +26,9 @@ class dnsmasq (
   $dnsmasq_logdir      = $dnsmasq::params::dnsmasq_logdir
   $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
   if $confdir_path == false {
-    $confdir_path = $dnsmasq::params::dnsmasq_confdir
+    $dnsmasq_confdir = $dnsmasq::params::dnsmasq_confdir
+  } else {
+          $dnsmasq_confdir = $confdir_path
   }
 
   package { $dnsmasq_package:
@@ -42,7 +44,7 @@ class dnsmasq (
     require   => Package[$dnsmasq_package],
   }
 
-  file { $confdir_path:
+  file { $dnsmasq_confdir:
     ensure => 'directory',
   }
 

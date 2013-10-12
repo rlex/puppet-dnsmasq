@@ -1,4 +1,4 @@
-### Master (unstable}
+### Master (unstable)
 (Please note: this release brings loads of changes and can break existing configs)
 
 * [FEATURE] array can be used in 'interface =>' to specify several listen interfaces
@@ -10,6 +10,7 @@
 * [FEATURE] tag and set options added to dnsmasq::dhcp and dnsmasq::dhcpboot 
 * [BUGFIX] several DHCP networks can be added now
 * [BUGFIX] added forgotten concat dependency
+* [BUGFIX] conf.d dir can now be used with system default
 
 ### 1.1.2
 

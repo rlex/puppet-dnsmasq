@@ -16,12 +16,11 @@ It features some advanced features like:
 ### DEPENDENCIES
 
 * puppet >= 2.6
-* puppetlabs/stdlib >= 2.0.0
+* puppetlabs/concat >= 1.0.0
 
 ### TODO
 
 * Rewrite OS detection based on $::OSFamily
-* Add set/tag options to (at least) dhcp-range, dhcp-boot
 
 ### Basic class
 
@@ -50,9 +49,12 @@ class { 'dnsmasq':
 ### DHCP server configuration
 
 Will add DHCP support to dnsmasq.
+This can be used multiple times to setup multiple DHCP servers.
+Parameter "paramset" is optional, this one makes use of tagging system in dnsmasq
 
 ```puppet
 dnsmasq::dhcp { 'dhcp': 
+  paramset   => 'hadoop0'
   dhcp_start => '192.168.1.100',
   dhcp_end   => '192.168.1.200',
   netmask    => '255.255.255.0',
@@ -71,6 +73,7 @@ dnsmasq::dhcpstatic { 'example-host':
   ip => '192.168.1.10',
 }
 ```
+
 ### Static DNS record configuration
 
 Will add static A record, this record will always override upstream data
@@ -89,8 +92,37 @@ Will add dhcp option. Can be used for all types of options, ie:
 * ipv4-option ( dnsmasq::dhcpoption { 'option:router': ... }
 * ipv6-option ( dnsmasq::dhcpoption { 'option6:dns-server': ... }
 
+Can be used multiple times.
+
 ```puppet
 dnsmasq::dhcpoption { 'option:router':
   content => '192.168.1.1',
+}
+```
+
+### DHCP booting (PXE)
+
+Allows you to setup different PXE servers in different subnets.
+paramtag is optional, you can use this to specify subnet for bootserver, 
+using tag you previously specified in dnsmasq::dhcp  
+Can be used multiple times.
+
+```
+dnsmasq::dhcpboot { 'hadoop-pxe':
+    paramtag   => 'hadoop0',
+    file       => 'pxelinux.0',
+    hostname   => 'newoffice',
+    bootserver => '192.168.39.1'
+}
+```
+
+### Per-subnet domain
+
+Allows you to specify different domain for specific subnets.
+Can be used multiple times.
+
+```
+dnsmasq::domain { 'guests.company.lan':
+    subnet => '192.168.196.0/24',
 }
 ```

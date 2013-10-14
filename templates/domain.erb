@@ -1,4 +1,3 @@
 <% if name != '' -%>
-<% intsubnet = ",#{@subnet}" if @subnet -%>
-domain=<%= "#{@name}#{intsubnet}" %>
+domain=<%= "#{@name},#{@subnet}" %>
 <% end -%>

@@ -1,4 +1,4 @@
-### Master (unstable)
+### 2.0.0
 (Please note: this release brings loads of changes and can break existing configs)
 
 * [FEATURE] array can be used in 'interface =>' to specify several listen interfaces
@@ -8,9 +8,10 @@
 * [FEATURE] interface, listen_address and domain is now optional, undefined by default
 * [FEATURE] dnsmasq::domain added to specify domain name for different subnets
 * [FEATURE] tag and set options added to dnsmasq::dhcp and dnsmasq::dhcpboot 
-* [BUGFIX] several DHCP networks can be added now
+* [BUGFIX] several DHCP instances can be added now
 * [BUGFIX] added forgotten concat dependency
 * [BUGFIX] conf.d dir can now be used with system default
+* [BUGFIX] Default dnsmasq conf.d directory can now be used on RHEL-based distros
 
 ### 1.1.2
 

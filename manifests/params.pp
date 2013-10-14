@@ -11,7 +11,7 @@ class dnsmasq::params {
     'redhat', 'centos', 'scientific': {
       $dnsmasq_conffile = '/etc/dnsmasq.conf'
       $dnsmasq_logdir = '/var/log'
-      $dnsmasq_confddir = '/etc/dnsmasq.d'
+      $dnsmasq_confdir = '/etc/dnsmasq.d'
       $dnsmasq_service = 'dnsmasq'
       $dnsmasq_package = 'dnsmasq'
     }

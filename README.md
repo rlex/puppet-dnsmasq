@@ -70,8 +70,8 @@ Please be aware that example-host will also be used as DNS name.
 
 ```puppet
 dnsmasq::dhcpstatic { 'example-host':
-  mac  => 'DE:AD:BE:EF:CA:FE',
-  ip => '192.168.1.10',
+  mac => 'DE:AD:BE:EF:CA:FE',
+  ip  => '192.168.1.10',
 }
 ```
 
@@ -108,12 +108,12 @@ paramtag is optional, you can use this to specify subnet for bootserver,
 using tag you previously specified in dnsmasq::dhcp  
 Can be used multiple times.
 
-```
+```puppet
 dnsmasq::dhcpboot { 'hadoop-pxe':
-    paramtag   => 'hadoop0',
-    file       => 'pxelinux.0',
-    hostname   => 'newoffice',
-    bootserver => '192.168.39.1'
+  paramtag   => 'hadoop0',
+  file       => 'pxelinux.0',
+  hostname   => 'newoffice',
+  bootserver => '192.168.39.1'
 }
 ```
 
@@ -122,8 +122,8 @@ dnsmasq::dhcpboot { 'hadoop-pxe':
 Allows you to specify different domain for specific subnets.
 Can be used multiple times.
 
-```
+```puppet
 dnsmasq::domain { 'guests.company.lan':
-    subnet => '192.168.196.0/24',
+  subnet => '192.168.196.0/24',
 }
 ```

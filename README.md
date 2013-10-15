@@ -75,7 +75,7 @@ dnsmasq::dhcpstatic { 'example-host':
 }
 ```
 
-### Static DNS record configuration
+### A record configuration
 
 Will add static A record, this record will always override upstream data
 
@@ -105,6 +105,16 @@ dnsmasq::srv { "_ldap._tcp.example.com":
   hostname => "ldap-server.example.com",
   port     => "389",
   priority => "1",
+}
+```
+
+### MX records
+Will create MX (mail eXchange) record which always override upstream data
+
+```puppet
+dnsmasq::mx { "maildomain.com":
+  hostname   => "mailserver.com",
+  preference => "50",
 }
 ```
 

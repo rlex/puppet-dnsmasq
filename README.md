@@ -85,6 +85,17 @@ dnsmasq::address { "example-host-dns.int.lan":
 }
 ```
 
+### CNAME records 
+Will add canonical name record.
+Please note that dnsmasq cname is NOT regular cname and can be only for targets
+which are names from DHCP leases or /etc/hosts, so it's more like alias for hostname
+
+```puppet
+dnsmasq::cname { "mail":
+  hostname => "post"
+}
+```
+
 ### DHCP option configuration
 
 Will add dhcp option. Can be used for all types of options, ie:

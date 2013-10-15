@@ -1,0 +1,4 @@
+<% if @name != '' -%>
+<% priority_set = ",#{@priority}" if @priority -%>
+srv-host=<%= "#{@name},#{@hostname},#{@port}#{priority_set}" %>
+<% end -%>

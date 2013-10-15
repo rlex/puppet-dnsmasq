@@ -96,6 +96,18 @@ dnsmasq::cname { "mail":
 }
 ```
 
+### SRV records
+Will add srv record which always overrides upstream data.
+Priority argument is optional.
+
+```puppet
+dnsmasq::srv { "_ldap._tcp.example.com":
+  hostname => "ldap-server.example.com",
+  port     => "389",
+  priority => "1",
+}
+```
+
 ### DHCP option configuration
 
 Will add dhcp option. Can be used for all types of options, ie:

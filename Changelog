@@ -1,5 +1,6 @@
 ### Master
 * [FEATURE] "cname" (sorta) records support
+* [FEATURE] srv records support
 
 ### 2.0.0-rc1
 (Please note: this release brings loads of changes and can break existing configs)

@@ -7,7 +7,7 @@ class dnsmasq (
   $port = '53',
   $enable_tftp = false,
   $tftp_root = '/var/lib/tftpboot',
-  $dhcp_boot = 'pxelinux.0',
+  $dhcp_boot = undef,
   $strict_order = true,
   $domain_needed = true,
   $bogus_priv = true,

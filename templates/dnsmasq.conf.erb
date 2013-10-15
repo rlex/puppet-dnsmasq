@@ -17,6 +17,9 @@ dhcp-boot=<%= @dhcp_boot %>
 enable-tftp
 tftp-root=<%= @tftp_root -%>
 <% end %>
+<% if @dhcp_boot -%>
+dhcp-boot=<%= @dhcp_boot %>
+<% end -%>
 <% if @listen_address.is_a? Array -%>
 <% @listen_address.each do || -%><%= "listen-address=#{@listen_address}\n" %><% end -%>
 <% elsif not @listen_address.nil? -%>

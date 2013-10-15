@@ -1,12 +1,13 @@
 # THIS FILE IS MANAGED BY PUPPET
 # ALL MANUAL CHANGES WILL BE OVERWRITTEN
 
+# MAIN CONFIG START
 <% if @domain_needed -%>
 domain-needed
-<% end %>
+<% end -%>
 <% if @bogus_priv -%>
 bogus-priv
-<% end %>
+<% end -%>
 <% if @strict_order -%>
 strict-order
 <% end -%>
@@ -14,7 +15,7 @@ port=<%= @port %>
 <% if @enable_tftp -%>
 dhcp-boot=<%= @dhcp_boot %>
 enable-tftp
-tftp-root=<%= @tftp_root %>
+tftp-root=<%= @tftp_root -%>
 <% end %>
 <% if @listen_address.is_a? Array -%>
 <% @listen_address.each do || -%><%= "listen-address=#{@listen_address}\n" %><% end -%>
@@ -28,22 +29,24 @@ tftp-root=<%= @tftp_root %>
 <% end -%>
 <% if @no_negcache -%>
 no-negcache
-<% end %>
+<% end -%>
 <% if @expand_hosts -%>
 expand-hosts
 <% end -%>
 <% if @no_hosts -%>
 no-hosts
 <% end -%>
-<% if @domain %>
+<% if @domain -%>
 domain=<%= domain %>
-<% end %>
-<% if @resolv_file %>
+<% end -%>
+<% if @resolv_file -%>
 resolv-file=<%= @resolv_file %>
-<% end %>
-<% if @cache_size %>
+<% end -%>
+<% if @cache_size -%>
 cache-size=<%= @cache_size %>
-<% end %>
-<% if @dnsmasq_confdir %>
+<% end -%>
+<% if @dnsmasq_confdir -%>
 conf-dir=<%= @dnsmasq_confdir %>
-<% end %>
+<% end -%>
+#MAIN CONFIG END
+

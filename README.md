@@ -12,6 +12,8 @@ It features some advanced features like:
 * Support for adding static DHCP records (MAC -> IP binding)
 * Support for adding static DNS records (IP -> hostname binding)
 * Support for DHCP options
+* Support for dnsmasq tagging system
+* And much more
 
 ### DEPENDENCIES
 
@@ -21,6 +23,7 @@ It features some advanced features like:
 ### TODO
 
 * Rewrite OS detection based on $::OSFamily
+* Unset as much as possible from base class by default
 
 ### Basic class
 

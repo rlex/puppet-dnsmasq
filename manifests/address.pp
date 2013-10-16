@@ -7,7 +7,7 @@ define dnsmasq::address (
   $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
 
   concat::fragment { "dnsmasq-staticdns-${name}":
-    order   => '03',
+    order   => '06',
     target  => $dnsmasq_conffile,
     content => template('dnsmasq/address.erb'),
   }

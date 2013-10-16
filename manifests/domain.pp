@@ -7,7 +7,7 @@ define dnsmasq::domain (
   $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
 
   concat::fragment { "dnsmasq-domain-${name}":
-    order   => '02',
+    order   => '05',
     target  => $dnsmasq_conffile,
     content => template('dnsmasq/domain.erb'),
   }

@@ -8,7 +8,7 @@ define dnsmasq::dhcpstatic (
   $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
 
   concat::fragment { "dnsmasq-staticdhcp-${name}":
-    order   => '02',
+    order   => '04',
     target  => $dnsmasq_conffile,
     content => template('dnsmasq/dhcpstatic.erb'),
   }

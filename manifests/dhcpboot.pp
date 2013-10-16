@@ -10,7 +10,7 @@ define dnsmasq::dhcpboot (
   $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
 
   concat::fragment { "dnsmasq-dhcpboot-${name}":
-    order   => '02',
+    order   => '03',
     target  => $dnsmasq_conffile,
     content => template('dnsmasq/dhcpboot.erb'),
   }

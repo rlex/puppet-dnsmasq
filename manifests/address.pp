@@ -1,4 +1,4 @@
-# Create an dnsmasq stub zone for caching upstream name resolvers.
+# Create an dnsmasq A record.
 define dnsmasq::address (
   $ip,
 ) {

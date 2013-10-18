@@ -1,3 +1,10 @@
+### 2.2.0-master
+
+* [FEATURE] PTR records
+* [FEATURE] TXT records
+* [BUGFIX] proper variable calling in all templates
+
+
 ### 2.1.0
 
 * [FEATURE] "cname" (sorta) records support

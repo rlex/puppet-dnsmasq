@@ -121,6 +121,24 @@ dnsmasq::mx { "maildomain.com":
 }
 ```
 
+### PTR records 
+Allows you to create PTR records for rDNS and DNS-SD.
+
+```puppet
+dnsmasq::ptr { "_http._tcp.dns-sd-services":
+  value => '"New Employee Page._http._tcp.dns-sd-services"'
+}
+
+### TXT records
+Allows you to create TXT records
+
+```puppet
+dnsmasq::txt { "_http._tcp.example.com":
+  value => "name=value,paper=A4"
+}
+```
+(this actually should be done via array, will fix later)
+
 ### DHCP option configuration
 
 Will add dhcp option. Can be used for all types of options, ie:

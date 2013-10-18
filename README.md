@@ -128,6 +128,7 @@ Allows you to create PTR records for rDNS and DNS-SD.
 dnsmasq::ptr { "_http._tcp.dns-sd-services":
   value => '"New Employee Page._http._tcp.dns-sd-services"'
 }
+```
 
 ### TXT records
 Allows you to create TXT records

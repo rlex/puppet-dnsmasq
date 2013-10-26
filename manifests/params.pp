@@ -8,7 +8,7 @@ class dnsmasq::params {
       $dnsmasq_service = 'dnsmasq'
       $dnsmasq_package = 'dnsmasq'
     }
-    'redhat', 'centos', 'scientific': {
+    'redhat', 'centos', 'scientific', 'fedora': {
       $dnsmasq_conffile = '/etc/dnsmasq.conf'
       $dnsmasq_logdir = '/var/log'
       $dnsmasq_confdir = '/etc/dnsmasq.d'

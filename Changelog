@@ -1,8 +1,9 @@
-### 2.2.0-master
+### 2.2.0
 
 * [FEATURE] PTR records
 * [FEATURE] TXT records
 * [BUGFIX] proper variable calling in all templates
+* [BUGFIX] fedora support fix
 
 
 ### 2.1.0

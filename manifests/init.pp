@@ -21,7 +21,6 @@ class dnsmasq (
   $config_hash = {},
 ) {
   include dnsmasq::params
-  include concat::setup
 
   # Localize some variables
   $dnsmasq_package     = $dnsmasq::params::dnsmasq_package

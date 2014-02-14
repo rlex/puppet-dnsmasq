@@ -29,6 +29,11 @@ listen-address=<%= addr %>
 interface=<%= iface %>
 <%   end -%>
 <% end -%>
+<% if @no_dhcp_interface -%>
+<%   [@no_dhcp_interface].flatten.compact.each do |iface| -%>
+no-dhcp-interface=<%= iface %>
+<%   end -%>
+<% end -%>
 <% if @no_negcache -%>
 no-negcache
 <% end -%>

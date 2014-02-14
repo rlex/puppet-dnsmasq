@@ -1,6 +1,7 @@
 #Primary class with options
 class dnsmasq (
   $interface = undef,
+  $no_dhcp_interface = undef,
   $listen_address = undef,
   $domain = undef,
   $expand_hosts = true,

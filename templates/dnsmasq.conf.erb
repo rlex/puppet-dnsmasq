@@ -19,15 +19,15 @@ tftp-root=<%= @tftp_root -%>
 <% if @dhcp_boot -%>
 dhcp-boot=<%= @dhcp_boot %>
 <% end -%>
-<% if @listen_address.is_a? Array -%>
-<% @listen_address.each do || -%><%= "listen-address=#{@listen_address}\n" %><% end -%>
-<% elsif not @listen_address.nil? -%>
-<%= "listen-address=#{@listen_address}\n" -%>
+<% if @listen_address -%>
+<%   [@listen_address].flatten.compact.each do |addr| -%>
+listen-address=<%= addr %>
+<%   end -%>
 <% end -%>
-<% if @interface.is_a? Array -%>
-<% @interface.each do |interface| -%><%= "interface=#{@interface}\n" %><% end -%>
-<% elsif not @interface.nil? -%>
-<%= "interface=#{@interface}\n" -%>
+<% if @interface -%>
+<%   [@interface].flatten.compact.each do |iface| -%>
+interface=<%= iface %>
+<%   end -%>
 <% end -%>
 <% if @no_negcache -%>
 no-negcache

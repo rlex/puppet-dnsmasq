@@ -12,6 +12,7 @@ class dnsmasq (
   $strict_order = true,
   $domain_needed = true,
   $bogus_priv = true,
+  $dhcp_no_override = false,
   $no_negcache = false,
   $no_hosts = false,
   $resolv_file = false,

@@ -49,6 +49,12 @@ class dnsmasq (
   file { $dnsmasq_confdir:
     ensure => 'directory',
   }
+  
+  if ! $no_hosts {
+    Host <||> { 
+      notify +> Service[$dnsmasq::params::dnsmasq_service],
+    }
+  }
 
   concat::fragment { 'dnsmasq-header':
     order   => '00',

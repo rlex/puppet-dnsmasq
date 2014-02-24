@@ -1,6 +1,7 @@
 #Primary class with options
 class dnsmasq (
   $interface = undef,
+  $no_dhcp_interface = undef,
   $listen_address = undef,
   $domain = undef,
   $expand_hosts = true,
@@ -11,6 +12,7 @@ class dnsmasq (
   $strict_order = true,
   $domain_needed = true,
   $bogus_priv = true,
+  $dhcp_no_override = false,
   $no_negcache = false,
   $no_hosts = false,
   $resolv_file = false,
@@ -46,6 +48,12 @@ class dnsmasq (
 
   file { $dnsmasq_confdir:
     ensure => 'directory',
+  }
+  
+  if ! $no_hosts {
+    Host <||> { 
+      notify +> Service[$dnsmasq::params::dnsmasq_service],
+    }
   }
 
   concat::fragment { 'dnsmasq-header':

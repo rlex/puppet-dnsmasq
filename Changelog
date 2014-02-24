@@ -1,3 +1,13 @@
+### 2.3.0
+
+Thanks to Thomas Bétrancourt (rclsilver) for that fixes/additions
+
+* [FEATURE] dnsmasq 'server' option
+* [FEATURE] dhcp-no-override parameter
+* [FEATURE] no-dhcp-interface parameter
+* [MISC] more readable template
+* [FEATURE] notify dnsmasq service if $no_hosts parameter is false and when host entries are created
+
 ### 2.2.0
 
 * [FEATURE] PTR records

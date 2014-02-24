@@ -33,20 +33,21 @@ All possible options shown here
 
 ```puppet
 class { 'dnsmasq':
-  interface      => 'lo',
-  listen_address => '192.168.39.1',
-  domain         => 'int.lan',
-  port           => '53',
-  expand_hosts   => true,
-  enable_tftp    => true,
-  tftp_root      => '/var/lib/tftpboot',
-  dhcp_boot      => 'pxelinux.0',
-  domain_needed  => true,
-  bogus_priv     => true,
-  no_negcache    => true,
-  no_hosts       => true,
-  resolv_file    => '/etc/resolv.conf',
-  cache_size     => 1000
+  interface         => 'lo',
+  listen_address    => '192.168.39.1',
+  no_dhcp_interface => '192.168.49.1',
+  domain            => 'int.lan',
+  port              => '53',
+  expand_hosts      => true,
+  enable_tftp       => true,
+  tftp_root         => '/var/lib/tftpboot',
+  dhcp_boot         => 'pxelinux.0',
+  domain_needed     => true,
+  bogus_priv        => true,
+  no_negcache       => true,
+  no_hosts          => true,
+  resolv_file       => '/etc/resolv.conf',
+  cache_size        => 1000
 }
 ```
 
@@ -180,5 +181,13 @@ Can be used multiple times.
 ```puppet
 dnsmasq::domain { 'guests.company.lan':
   subnet => '192.168.196.0/24',
+}
+```
+
+### DNS server
+Configure the DNS server to query subdomains to external DNS servers
+```puppet
+dnsmasq::dnsserver { 'dns':
+  ip => '192.168.1.1',
 }
 ```

@@ -7,7 +7,7 @@ define dnsmasq::dnsserver (
   $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
 
   concat::fragment { "dnsmasq-dnsserver-${name}":
-    order   => '04',
+    order   => '12',
     target  => $dnsmasq_conffile,
     content => template('dnsmasq/dnsserver.erb'),
   }

@@ -7,7 +7,7 @@ define dnsmasq::cname (
   $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
 
   concat::fragment { "dnsmasq-cname-${name}":
-    order   => '10',
+    order   => '11',
     target  => $dnsmasq_conffile,
     content => template('dnsmasq/cname.erb'),
   }

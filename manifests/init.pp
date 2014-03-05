@@ -17,7 +17,8 @@ class dnsmasq (
   $no_hosts = false,
   $resolv_file = false,
   $cache_size = 1000,
-  $confdir_path = false
+  $confdir_path = false,
+  $config_hash = {},
 ) {
   include dnsmasq::params
   include concat::setup

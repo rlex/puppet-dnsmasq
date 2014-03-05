@@ -19,8 +19,13 @@ class dnsmasq (
   $cache_size = 1000,
   $confdir_path = false,
   $config_hash = {},
+  $service_ensure = 'running',
+  $service_enable = true,
 ) {
+
   include dnsmasq::params
+
+  validate_bool($service_enable)
 
   # Localize some variables
   $dnsmasq_package     = $dnsmasq::params::dnsmasq_package
@@ -48,9 +53,9 @@ class dnsmasq (
   }
 
   service { $dnsmasq_service:
-    ensure    => running,
+    ensure    => $service_ensure,
     name      => $dnsmasq_service,
-    enable    => true,
+    enable    => $service_enable,
     hasstatus => false,
     require   => Package[$dnsmasq_package],
   }

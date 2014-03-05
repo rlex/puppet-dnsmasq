@@ -38,6 +38,15 @@ class dnsmasq (
     provider => $::provider,
   }
 
+  # let's save the commented default config file after installation.
+  exec { 'save_config_file':
+    command => "cp ${dnsmasq_conffile} ${dnsmasq_conffile}.orig",
+    creates => "${dnsmasq_conffile}.orig",
+    path    => [ "/usr/bin", "/usr/sbin", "/bin", "/sbin", ],
+    require => Package[$dnsmasq_package],
+    before  => File[$dnsmasq_conffile],
+  }
+
   service { $dnsmasq_service:
     ensure    => running,
     name      => $dnsmasq_service,

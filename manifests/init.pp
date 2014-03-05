@@ -52,7 +52,7 @@ class dnsmasq (
     before  => File[$dnsmasq_conffile],
   }
 
-  service { $dnsmasq_service:
+  service { 'dnsmasq':
     ensure    => $service_ensure,
     name      => $dnsmasq_service,
     enable    => $service_enable,

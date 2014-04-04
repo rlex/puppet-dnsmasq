@@ -1,5 +1,6 @@
 # Create an dnsmasq dhcp option.
 define dnsmasq::dhcpoption (
+  $paramtag = undef,
   $content,
 ) {
   include dnsmasq::params

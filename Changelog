@@ -1,6 +1,13 @@
+### 2.4.0
+
+Thanks to guimaluf @ github for that fixes/additions
+
+* [FEATURE] dnsmasq::dhcpboot with less required parameters
+* [FEATURE] dnsmasq::dhcpoption now supports dnsmasq tags
+
 ### 2.3.0
 
-Thanks to Thomas Bétrancourt (rclsilver) for that fixes/additions
+Thanks to Thomas Bétrancourt (rclsilver @ github) for that fixes/additions
 
 * [FEATURE] dnsmasq 'server' option
 * [FEATURE] dhcp-no-override parameter
@@ -24,7 +31,7 @@ Thanks to Thomas Bétrancourt (rclsilver) for that fixes/additions
 * [MISC] cosmetic changes in header of dnsmasq.conf, no more ugly newlines
 * [BUGFIX] concat ordering fixed
 
-### 2.0.0-rc1
+### 2.0.0
 (Please note: this release brings loads of changes and can break existing configs)
 
 * [FEATURE] array can be used in 'interface =>' to specify several listen interfaces

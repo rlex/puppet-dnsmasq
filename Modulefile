@@ -1,5 +1,5 @@
 name    'lex-dnsmasq'
-version '2.3.0'
+version '2.4.0'
 dependency 'puppetlabs/concat', '>= 1.0.0'
 source 'git://github.com/rlex/puppet-dnsmasq.git'
 author 'Lex Rivera <me@lex.io>'

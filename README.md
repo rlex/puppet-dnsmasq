@@ -59,7 +59,7 @@ Parameter "paramset" is optional, this one makes use of tagging system in dnsmas
 
 ```puppet
 dnsmasq::dhcp { 'dhcp': 
-  paramset   => 'hadoop0'
+  paramset   => 'hadoop0' #optional
   dhcp_start => '192.168.1.100',
   dhcp_end   => '192.168.1.200',
   netmask    => '255.255.255.0',
@@ -154,6 +154,7 @@ Can be used multiple times.
 ```puppet
 dnsmasq::dhcpoption { 'option:router':
   content => '192.168.1.1',
+  paramtag => 'sometag', #optional
 }
 ```
 
@@ -166,10 +167,10 @@ Can be used multiple times.
 
 ```puppet
 dnsmasq::dhcpboot { 'hadoop-pxe':
-  paramtag   => 'hadoop0',
-  file       => 'pxelinux.0',
-  hostname   => 'newoffice',
-  bootserver => '192.168.39.1'
+  paramtag   => 'hadoop0', #optional
+  file       => 'pxelinux.0', 
+  hostname   => 'newoffice', #optional
+  bootserver => '192.168.39.1' #optional
 }
 ```
 

@@ -2,8 +2,8 @@
 define dnsmasq::dhcpboot (
   $paramtag = undef,
   $file,
-  $hostname,
-  $bootserver,
+  $hostname = undef,
+  $bootserver = undef,
 ) {
   include dnsmasq::params
 

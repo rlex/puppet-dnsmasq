@@ -1,6 +1,6 @@
 # Create an dnsmasq ptr record.
 define dnsmasq::ptr (
-  $value,
+  $ip,
 ) {
   include dnsmasq::params
 

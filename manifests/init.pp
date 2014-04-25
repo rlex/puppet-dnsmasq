@@ -17,7 +17,7 @@ class dnsmasq (
   $no_hosts = false,
   $resolv_file = false,
   $cache_size = 1000,
-  $confdir_path = false,
+  $confdir_path = '__default__',
   $config_hash = {},
   $service_ensure = 'running',
   $service_enable = true,
@@ -32,9 +32,10 @@ class dnsmasq (
   $dnsmasq_conffile     = $dnsmasq::params::dnsmasq_conffile
   $dnsmasq_logdir      = $dnsmasq::params::dnsmasq_logdir
   $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
-  if $confdir_path == false {
+
+  if $confdir_path == '__default__' {
     $dnsmasq_confdir = $dnsmasq::params::dnsmasq_confdir
-  } else {
+  } elsif $confdir_path {
           $dnsmasq_confdir = $confdir_path
   }
 
@@ -60,8 +61,10 @@ class dnsmasq (
     require   => Package[$dnsmasq_package],
   }
 
-  file { $dnsmasq_confdir:
-    ensure => 'directory',
+  if $dnsmasq_confdir {
+    file { $dnsmasq_confdir:
+      ensure => 'directory',
+    }
   }
   
   if ! $no_hosts {

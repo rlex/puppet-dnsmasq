@@ -17,19 +17,25 @@ class dnsmasq (
   $no_hosts = false,
   $resolv_file = false,
   $cache_size = 1000,
-  $confdir_path = false
+  $confdir_path = '__default__',
+  $config_hash = {},
+  $service_ensure = 'running',
+  $service_enable = true,
 ) {
+
   include dnsmasq::params
-  include concat::setup
+
+  validate_bool($service_enable)
 
   # Localize some variables
   $dnsmasq_package     = $dnsmasq::params::dnsmasq_package
   $dnsmasq_conffile     = $dnsmasq::params::dnsmasq_conffile
   $dnsmasq_logdir      = $dnsmasq::params::dnsmasq_logdir
   $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
-  if $confdir_path == false {
+
+  if $confdir_path == '__default__' {
     $dnsmasq_confdir = $dnsmasq::params::dnsmasq_confdir
-  } else {
+  } elsif $confdir_path {
           $dnsmasq_confdir = $confdir_path
   }
 
@@ -38,16 +44,27 @@ class dnsmasq (
     provider => $::provider,
   }
 
-  service { $dnsmasq_service:
-    ensure    => running,
+  # let's save the commented default config file after installation.
+  exec { 'save_config_file':
+    command => "cp ${dnsmasq_conffile} ${dnsmasq_conffile}.orig",
+    creates => "${dnsmasq_conffile}.orig",
+    path    => [ "/usr/bin", "/usr/sbin", "/bin", "/sbin", ],
+    require => Package[$dnsmasq_package],
+    before  => File[$dnsmasq_conffile],
+  }
+
+  service { 'dnsmasq':
+    ensure    => $service_ensure,
     name      => $dnsmasq_service,
-    enable    => true,
+    enable    => $service_enable,
     hasstatus => false,
     require   => Package[$dnsmasq_package],
   }
 
-  file { $dnsmasq_confdir:
-    ensure => 'directory',
+  if $dnsmasq_confdir {
+    file { $dnsmasq_confdir:
+      ensure => 'directory',
+    }
   }
   
   if ! $no_hosts {

@@ -1,6 +1,23 @@
-# THIS FILE IS MANAGED BY PUPPET
-# ALL MANUAL CHANGES WILL BE OVERWRITTEN
-
+<%
+  # if something is set in config_hash that should be set in the parameters,
+  # we move it there.
+  # We could also _not_ do this, but that would be inconsistent. Also we get
+  # the benefit of being able to COMPLETELY configure dnsmasq using a single
+  # hash.
+  primary_keys = [ "port", "listen_address", "interface", "domain_needed",
+    "bogus_priv", "strict_order", "dhcp_boot", "no_negcache",
+    "expand_hosts", "no_hosts", "domain", "resolv_file", "cache_size",
+    "dnsmasq_confdir", "enable_tftp", "tftp_root", "no_dhcp_interface",
+    "dhcp_no_override", ]
+  primary_keys.each do |key_instance|
+    [ key_instance, key_instance.gsub("_","-") ].each do |key|
+      if config_hash.include? key
+        self.instance_variable_set("@#{key_instance}".to_sym, config_hash[key])
+        config_hash.delete(key)
+      end
+    end
+  end
+-%>
 # MAIN CONFIG START
 <% if @domain_needed -%>
 domain-needed
@@ -20,19 +37,19 @@ tftp-root=<%= @tftp_root -%>
 dhcp-boot=<%= @dhcp_boot %>
 <% end -%>
 <% if @listen_address -%>
-<%   [@listen_address].flatten.compact.each do |addr| -%>
+<% [@listen_address].flatten.compact.each do |addr| -%>
 listen-address=<%= addr %>
-<%   end -%>
+<% end -%>
 <% end -%>
 <% if @interface -%>
-<%   [@interface].flatten.compact.each do |iface| -%>
+<% [@interface].flatten.compact.each do |iface| -%>
 interface=<%= iface %>
-<%   end -%>
+<% end -%>
 <% end -%>
 <% if @no_dhcp_interface -%>
-<%   [@no_dhcp_interface].flatten.compact.each do |iface| -%>
+<% [@no_dhcp_interface].flatten.compact.each do |iface| -%>
 no-dhcp-interface=<%= iface %>
-<%   end -%>
+<% end -%>
 <% end -%>
 <% if @no_negcache -%>
 no-negcache
@@ -59,4 +76,57 @@ cache-size=<%= @cache_size %>
 conf-dir=<%= @dnsmasq_confdir %>
 <% end -%>
 #MAIN CONFIG END
+
+# EXTENDED CONFIG
+<%
+  if ! @config_hash.nil?
+
+    # for more complex configuration things (like arrays) the real
+    # top level thing has to be extended.
+
+    # semantics: in config file it is
+    # ...
+    # config_key[=config_value]
+    # ...
+    # and they are rendered like this:
+    #   BOOLEAN vars:
+    #                     OPTION              # TRUE: present,
+    #                     # OPTION            # FALSE: present, but commented
+    #   ARRAY vars:
+    #                     OPTION=VALUE1
+    #                     OPTION=VALUE2
+    #                     ...
+    #                     OPTION=VALUEn
+    #   ALL OTHERS:
+    #                     OPTION=VALUE
+    #
+    # where VALUE is the VALUE in the KEY->VALUE hash of config_hash, and
+    # OPTION is the KEY in the pair.
+
+
+    config_hash.keys.sort.each do |config_key|
+      config_value = @config_hash[config_key]
+      if !!config_value == config_value               # is this a boolean?
+        print_config  = ""
+        config_prefix = config_value ? "" : "# "      # defined, but false maybe?
+-%>
+<%= config_prefix %><%= config_key.gsub("_","-") %><%= print_config %>
+<%
+      elsif config_value.is_a? Array                  # if it's an array ...
+        config_value.each do |p|
+-%>
+<%= config_key.gsub("_","-") %>=<%= p %>
+<%
+        end
+      else                                            # and anything else
+-%>
+<%= config_key.gsub("_","-") %>=<%= config_value.to_s %>
+<%
+      end
+-%>
+<%
+    end
+  end
+-%>
+# EXTENDED CONFIG END
 

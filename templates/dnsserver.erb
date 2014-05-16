@@ -1,2 +1,2 @@
-<% domain_int = "/#{@domain_int}/" if @domain -%>
-server=<%= #{domain_int} -%><%= @ip %>
+<% domain_int = "/#{@domain}/" if @domain -%>
+server=<%= #{domain_int}#{@ip} %>

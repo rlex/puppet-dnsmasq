@@ -1,6 +1,6 @@
 # Configure the DNS server to query sub domains to external DNS servers
 define dnsmasq::dnsserver (
-  $domain,
+  $domain = undef,
   $ip,
 ) {
   include dnsmasq::params

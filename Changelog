@@ -1,3 +1,19 @@
+### 2.5.0
+(NB: If you use dnsmasq::dnsserver class, read that changelog!)
+Thanks to Axel Bock ( flypenguin @ github ) for most of changes in this patch.
+
+* [API] dnsmasq::dnsserver now require $domain variable for queueing subdomains
+* [FEATURE] dnsmasq::dnsserver can now be used without domain (by default)
+* [FEATURE] Ability to configure dnsmasq completely using a config_hash option
+* [FEATURE] Save original config before replacing it with puppet-generated
+* [FEATURE] Use a generic service name 
+* [FEATURE] Make service state configurable 
+* [FEATURE] Confdir is now optional
+* [FEATURE] Most of variables in dnsserver::mx is now optional
+* [FEATURE] Validate IP using stdlib
+* [FIX] concat::setup call removed since it deprecated
+* [FIX] Updated dependencies
+
 ### 2.4.0
 
 Thanks to guimaluf @ github for that fixes/additions

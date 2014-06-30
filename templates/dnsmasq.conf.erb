@@ -11,9 +11,9 @@
     "dhcp_no_override", ]
   primary_keys.each do |key_instance|
     [ key_instance, key_instance.gsub("_","-") ].each do |key|
-      if config_hash.include? key
+      if @config_hash.include? key
         self.instance_variable_set("@#{key_instance}".to_sym, config_hash[key])
-        config_hash.delete(key)
+        @config_hash.delete(key)
       end
     end
   end
@@ -104,7 +104,7 @@ conf-dir=<%= @dnsmasq_confdir %>
     # OPTION is the KEY in the pair.
 
 
-    config_hash.keys.sort.each do |config_key|
+    @config_hash.keys.sort.each do |config_key|
       config_value = @config_hash[config_key]
       if !!config_value == config_value               # is this a boolean?
         print_config  = ""

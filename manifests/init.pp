@@ -42,6 +42,7 @@ class dnsmasq (
   package { $dnsmasq_package:
     ensure   => installed,
     provider => $::provider,
+    before => Exec['reload_resolvconf'],
   }
 
   # let's save the commented default config file after installation.
@@ -59,6 +60,13 @@ class dnsmasq (
     enable    => $service_enable,
     hasstatus => false,
     require   => Package[$dnsmasq_package],
+  }
+  
+  exec { 'reload_resolvconf':
+    command => "/sbin/resolvconf -u",
+    user => root,
+    onlyif => "test -f /sbin/resolvconf",
+    before => Service['dnsmasq'],
   }
 
   if $dnsmasq_confdir {

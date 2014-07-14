@@ -4,6 +4,7 @@ This version's contibutors: bwalex @ github and funnymanva @ github.
 * [FEATURE] add hook for resolvconf -u 
 * [FEATURE] dragonfly BSD support
 * [FEATURE] dns-rr records support
+* [FEATURE] add support for authoritative mode
 
 ### 2.5.0
 (NB: If you use dnsmasq::dnsserver class, read that changelog!)

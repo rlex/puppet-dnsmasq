@@ -75,6 +75,15 @@ cache-size=<%= @cache_size %>
 <% if @dnsmasq_confdir -%>
 conf-dir=<%= @dnsmasq_confdir %>
 <% end -%>
+<% if @auth_server -%>
+auth-server=<%= @auth_server %>
+<% end -%>
+<% if @auth_sec_servers -%>
+auth-sec-servers=<%= @auth_sec_servers %>
+<% end -%>
+<% if @auth_zone -%>
+auth-zone=<%= @auth_zone %>
+<% end -%>
 #MAIN CONFIG END
 
 # EXTENDED CONFIG

@@ -21,6 +21,9 @@ class dnsmasq (
   $config_hash = {},
   $service_ensure = 'running',
   $service_enable = true,
+  $auth_server = undef,
+  $auth_sec_servers = undef,
+  $auth_zone = undef,
 ) {
 
   include dnsmasq::params

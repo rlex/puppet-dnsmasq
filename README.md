@@ -19,6 +19,7 @@ It features some advanced features like:
 
 * puppet >= 2.6
 * puppetlabs/concat >= 1.0.0
+* puppetlabs/stdlib
 
 ### TODO
 
@@ -190,5 +191,15 @@ Configure the DNS server to query subdomains to external DNS servers
 ```puppet
 dnsmasq::dnsserver { 'dns':
   ip => '192.168.1.1',
+}
+```
+
+### DNS-RR records 
+Allows dnsmasq to serve arbitrary records, for example:
+```puppet
+dnsmasq::dnsrr { 'example-sshfp':
+    domain => 'example.com',
+    type   => '44',
+    rdata  => '2:1:123456789abcdef67890123456789abcdef67890'
 }
 ```

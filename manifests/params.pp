@@ -22,7 +22,7 @@ class dnsmasq::params {
       $dnsmasq_service = 'org.macports.dnsmasq'
       $dnsmasq_package = 'dnsmasq'
     }
-    'freebsd': {
+    'freebsd', 'dragonfly': {
       $dnsmasq_conffile = '/usr/local/etc/dnsmasq.conf'
       $dnsmasq_logdir  = '/var/log/dnsmasq'
       $dnsmasq_confdir = '/usr/local/etc/dnsmasq.d'

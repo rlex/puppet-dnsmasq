@@ -63,6 +63,7 @@ class dnsmasq (
   }
   
   exec { 'reload_resolvconf':
+    provider => shell,
     command => "/sbin/resolvconf -u",
     user => root,
     onlyif => "test -f /sbin/resolvconf",

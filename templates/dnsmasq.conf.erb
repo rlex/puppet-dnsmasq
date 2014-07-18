@@ -87,6 +87,9 @@ auth-zone=<%= @auth_zone %>
 <% if @run_as_user -%>
 user=<%= @run_as_user %>
 <% end -%>
+<% if @server -%>
+server=<%= @server %>
+<% end -%>
 #MAIN CONFIG END
 
 # EXTENDED CONFIG

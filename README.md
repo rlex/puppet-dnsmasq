@@ -48,7 +48,7 @@ class { 'dnsmasq':
   no_negcache       => true,
   no_hosts          => true,
   resolv_file       => '/etc/resolv.conf',
-  cache_size        => 1000
+  cache_size        => 1000,
 }
 ```
 
@@ -201,5 +201,22 @@ dnsmasq::dnsrr { 'example-sshfp':
     domain => 'example.com',
     type   => '44',
     rdata  => '2:1:123456789abcdef67890123456789abcdef67890'
+}
+```
+
+###Running in Docker containers
+When running in a Docker container, dnsmasq tries to drop root privileges. This causes the following error:
+```
+dnsmasq: setting capabilities failed: Operation not permitted
+```
+
+In this case you can use the run\_as\_user to provide the appropriate user to run as:
+```puppet
+class { 'dnsmasq':
+  interface         => 'lo',
+  listen_address    => '192.168.39.1',
+  no_dhcp_interface => '192.168.49.1',
+  ....
+  run_as_user       => 'root',
 }
 ```

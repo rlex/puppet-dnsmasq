@@ -84,6 +84,9 @@ auth-sec-servers=<%= @auth_sec_servers %>
 <% if @auth_zone -%>
 auth-zone=<%= @auth_zone %>
 <% end -%>
+<% if @run_as_user -%>
+user=<%= @run_as_user %>
+<% end -%>
 #MAIN CONFIG END
 
 # EXTENDED CONFIG

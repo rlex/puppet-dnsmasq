@@ -49,6 +49,7 @@ class { 'dnsmasq':
   no_hosts          => true,
   resolv_file       => '/etc/resolv.conf',
   cache_size        => 1000,
+  server            => '8.8.8.8',
 }
 ```
 

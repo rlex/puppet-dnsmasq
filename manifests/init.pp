@@ -25,6 +25,7 @@ class dnsmasq (
   $auth_sec_servers = undef,
   $auth_zone = undef,
   $run_as_user = undef,
+  $server = undef,
 ) {
 
   include dnsmasq::params

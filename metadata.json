@@ -25,6 +25,9 @@
       "operatingsystem": "Ubuntu"
     },
     {
+      "operatingsystem": "DragonFly"
+    },
+    {
       "operatingsystem": "FreeBSD"
     }
   ],

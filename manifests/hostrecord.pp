@@ -1,4 +1,4 @@
-# Create an dnsmasq A record.
+# Create a dnsmasq A,AAAA and PTR record.
 define dnsmasq::hostrecord (
   $ip,
 ) {

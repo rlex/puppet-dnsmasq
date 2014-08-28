@@ -1,4 +1,4 @@
-#Primary class with options
+# Primary class with options
 class dnsmasq (
   $interface = undef,
   $no_dhcp_interface = undef,
@@ -40,20 +40,20 @@ class dnsmasq (
   if $confdir_path == '__default__' {
     $dnsmasq_confdir = $dnsmasq::params::dnsmasq_confdir
   } elsif $confdir_path {
-          $dnsmasq_confdir = $confdir_path
+    $dnsmasq_confdir = $confdir_path
   }
 
   package { $dnsmasq_package:
     ensure   => installed,
     provider => $::provider,
-    before => Exec['reload_resolvconf'],
+    before   => Exec['reload_resolvconf'],
   }
 
   # let's save the commented default config file after installation.
   exec { 'save_config_file':
     command => "cp ${dnsmasq_conffile} ${dnsmasq_conffile}.orig",
     creates => "${dnsmasq_conffile}.orig",
-    path    => [ "/usr/bin", "/usr/sbin", "/bin", "/sbin", ],
+    path    => [ '/usr/bin', '/usr/sbin', '/bin', '/sbin', ],
     require => Package[$dnsmasq_package],
     before  => File[$dnsmasq_conffile],
   }
@@ -65,13 +65,13 @@ class dnsmasq (
     hasstatus => false,
     require   => Package[$dnsmasq_package],
   }
-  
+
   exec { 'reload_resolvconf':
     provider => shell,
-    command => "/sbin/resolvconf -u",
-    user => root,
-    onlyif => "test -f /sbin/resolvconf",
-    before => Service['dnsmasq'],
+    command  => '/sbin/resolvconf -u',
+    user     => root,
+    onlyif   => 'test -f /sbin/resolvconf',
+    before   => Service['dnsmasq'],
   }
 
   if $dnsmasq_confdir {
@@ -79,9 +79,9 @@ class dnsmasq (
       ensure => 'directory',
     }
   }
-  
+
   if ! $no_hosts {
-    Host <||> { 
+    Host <||> {
       notify +> Service[$dnsmasq::params::dnsmasq_service],
     }
   }

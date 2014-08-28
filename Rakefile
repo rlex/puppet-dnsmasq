@@ -7,4 +7,6 @@ RSpec::Core::RakeTask.new(:spec) do |t|
   t.pattern = 'spec/*/*_spec.rb'
 end
 
+PuppetLint.configuration.send('disable_autoloader_layout')
+
 task :default => [:spec, :lint]

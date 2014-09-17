@@ -1,7 +1,7 @@
 # Create an dnsmasq dhcp option.
 define dnsmasq::dhcpoption (
-  $paramtag = undef,
   $content,
+  $paramtag = undef,
 ) {
   include dnsmasq::params
 

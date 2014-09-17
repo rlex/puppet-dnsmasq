@@ -21,7 +21,7 @@ define dnsmasq::mx (
 
   concat::fragment { "dnsmasq-mx-${name}":
     # prevent "reordering" changes
-    order   => "07_${mx_name}_${use_hostname}_${$use_preference}",
+    order   => "07_${mx_name}_${use_hostname}_${use_preference}",
     target  => $dnsmasq_conffile,
     content => template('dnsmasq/mx.erb'),
   }

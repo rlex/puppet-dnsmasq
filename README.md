@@ -80,6 +80,16 @@ dnsmasq::dhcpstatic { 'example-host':
 }
 ```
 
+### Host record configuration
+
+Will add static A, AAAA and PTR record
+
+```puppet
+dnsmasq::hostrecord { "example-host-dns,example-host-dns.int.lan":
+  ip  => '192.168.1.20',
+}
+```
+
 ### A record configuration
 
 Will add static A record, this record will always override upstream data

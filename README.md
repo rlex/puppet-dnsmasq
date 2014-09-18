@@ -21,9 +21,11 @@ It features some advanced features like:
 * puppetlabs/concat >= 1.0.0
 * puppetlabs/stdlib
 
+### STATUS
+[![Build Status](https://travis-ci.org/rlex/puppet-dnsmasq.svg?branch=master)](https://travis-ci.org/rlex/puppet-dnsmasq)
+
 ### TODO
 
-* Rewrite OS detection based on $::OSFamily
 * Unset as much as possible from base class by default
 
 ### Basic class

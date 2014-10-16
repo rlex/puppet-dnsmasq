@@ -200,12 +200,20 @@ dnsmasq::domain { 'guests.company.lan':
 ```
 
 ### DNS server
-Configure the DNS server to query subdomains to external DNS servers
+Configure the DNS server to query external DNS servers
 ```puppet
 dnsmasq::dnsserver { 'dns':
   ip => '192.168.1.1',
 }
 ```
+
+Or, to query specific zone
+```puppet
+dnsmasq::dnsserver { 'forward-zone':
+  domain => "dumb.domain.tld",
+  ip => "192.168.39.1",
+}
+```puppet
 
 ### DNS-RR records 
 Allows dnsmasq to serve arbitrary records, for example:

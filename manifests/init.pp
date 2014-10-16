@@ -94,7 +94,7 @@ class dnsmasq (
     require => Package[$dnsmasq_package],
   }
 
-  if $restart == true { 
+  if $restart {
     concat { $dnsmasq_conffile:
       notify  => Service[$dnsmasq_service],
       require => Package[$dnsmasq_package],

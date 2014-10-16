@@ -25,6 +25,7 @@ class dnsmasq (
   $auth_sec_servers = undef,
   $auth_zone = undef,
   $run_as_user = undef,
+  $restart = true,
 ) {
 
   include dnsmasq::params
@@ -93,10 +94,18 @@ class dnsmasq (
     require => Package[$dnsmasq_package],
   }
 
-  concat { $dnsmasq_conffile:
-    notify  => Service[$dnsmasq_service],
-    require => Package[$dnsmasq_package],
+  if $restart == true { 
+    concat { $dnsmasq_conffile:
+      notify  => Service[$dnsmasq_service],
+      require => Package[$dnsmasq_package],
+    }
+  } else {
+    concat { $dnsmasq_conffile:
+      require => Package[$dnsmasq_package],
+    }
   }
+
+
 
 }
 

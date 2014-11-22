@@ -71,7 +71,7 @@ class dnsmasq (
     provider => shell,
     command  => '/sbin/resolvconf -u',
     user     => root,
-    onlyif   => 'test -f /sbin/resolvconf',
+    onlyif   => '/bin/test -f /sbin/resolvconf',
     before   => Service['dnsmasq'],
   }
 

@@ -75,7 +75,7 @@ class dnsmasq (
       onlyif   => '/bin/test -f /sbin/resolvconf',
       before   => Service['dnsmasq'],
       require  => Package[$dnsmasq_package],
-   }
+    }
   }
 
   if $dnsmasq_confdir {

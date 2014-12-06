@@ -26,6 +26,7 @@ class dnsmasq (
   $auth_zone = undef,
   $run_as_user = undef,
   $restart = true,
+  $reload_resolvconf = true,
 ) {
 
   include dnsmasq::params
@@ -47,7 +48,6 @@ class dnsmasq (
   package { $dnsmasq_package:
     ensure   => installed,
     provider => $::provider,
-    before   => Exec['reload_resolvconf'],
   }
 
   # let's save the commented default config file after installation.
@@ -67,12 +67,15 @@ class dnsmasq (
     require   => Package[$dnsmasq_package],
   }
 
-  exec { 'reload_resolvconf':
-    provider => shell,
-    command  => '/sbin/resolvconf -u',
-    user     => root,
-    onlyif   => '/bin/test -f /sbin/resolvconf',
-    before   => Service['dnsmasq'],
+  if $reload_resolvconf {
+    exec { 'reload_resolvconf':
+      provider => shell,
+      command  => '/sbin/resolvconf -u',
+      user     => root,
+      onlyif   => '/bin/test -f /sbin/resolvconf',
+      before   => Service['dnsmasq'],
+      require  => Package[$dnsmasq_package],
+    }
   }
 
   if $dnsmasq_confdir {

@@ -213,7 +213,7 @@ dnsmasq::dnsserver { 'forward-zone':
   domain => "dumb.domain.tld",
   ip => "192.168.39.1",
 }
-```puppet
+```
 
 ### DNS-RR records 
 Allows dnsmasq to serve arbitrary records, for example:

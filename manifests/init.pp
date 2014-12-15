@@ -71,8 +71,9 @@ class dnsmasq (
     exec { 'reload_resolvconf':
       provider => shell,
       command  => '/sbin/resolvconf -u',
+      path     => [ '/usr/bin', '/usr/sbin', '/bin', '/sbin', ],
       user     => root,
-      onlyif   => '/bin/test -f /sbin/resolvconf',
+      onlyif   => 'test -f /sbin/resolvconf',
       before   => Service['dnsmasq'],
       require  => Package[$dnsmasq_package],
     }

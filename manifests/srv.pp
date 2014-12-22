@@ -4,13 +4,19 @@ define dnsmasq::srv (
   $port,
   $priority = undef,
 ) {
-  include dnsmasq::params
+  validate_re($port,'^\d+$')
+  if undef != $priority { validate_re($port,'^\d+$') }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  $priority_real = $priority ? {
+    undef   => '',
+    default => ",${priority}",
+  }
+
+  include dnsmasq
 
   concat::fragment { "dnsmasq-srv-${name}":
     order   => '08',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/srv.erb'),
   }
 

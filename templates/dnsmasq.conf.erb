@@ -4,13 +4,13 @@
   # We could also _not_ do this, but that would be inconsistent. Also we get
   # the benefit of being able to COMPLETELY configure dnsmasq using a single
   # hash.
-  primary_keys = [ "port", "listen_address", "interface", "domain_needed",
-    "bogus_priv", "strict_order", "dhcp_boot", "no_negcache",
-    "expand_hosts", "no_hosts", "domain", "resolv_file", "cache_size",
-    "dnsmasq_confdir", "enable_tftp", "tftp_root", "no_dhcp_interface",
-    "dhcp_no_override", ]
+  primary_keys = [ 'port', 'listen_address', 'interface', 'domain_needed',
+    'bogus_priv', 'strict_order', 'dhcp_boot', 'no_negcache',
+    'expand_hosts', 'no_hosts', 'domain', 'resolv_file', 'cache_size',
+    'dnsmasq_confdir', 'enable_tftp', 'tftp_root', 'no_dhcp_interface',
+    'dhcp_no_override', ]
   primary_keys.each do |key_instance|
-    [ key_instance, key_instance.gsub("_","-") ].each do |key|
+    [ key_instance, key_instance.gsub('_','-') ].each do |key|
       if @config_hash.include? key
         self.instance_variable_set("@#{key_instance}".to_sym, config_hash[key])
         @config_hash.delete(key)
@@ -119,20 +119,20 @@ user=<%= @run_as_user %>
     @config_hash.keys.sort.each do |config_key|
       config_value = @config_hash[config_key]
       if !!config_value == config_value               # is this a boolean?
-        print_config  = ""
-        config_prefix = config_value ? "" : "# "      # defined, but false maybe?
+        print_config  = ''
+        config_prefix = config_value ? '' : '# '      # defined, but false maybe?
 -%>
-<%= config_prefix %><%= config_key.gsub("_","-") %><%= print_config %>
+<%= config_prefix %><%= config_key.gsub('_','-') %><%= print_config %>
 <%
       elsif config_value.is_a? Array                  # if it's an array ...
         config_value.each do |p|
 -%>
-<%= config_key.gsub("_","-") %>=<%= p %>
+<%= config_key.gsub('_','-') %>=<%= p %>
 <%
         end
       else                                            # and anything else
 -%>
-<%= config_key.gsub("_","-") %>=<%= config_value.to_s %>
+<%= config_key.gsub('_','-') %>=<%= config_value.to_s %>
 <%
       end
 -%>

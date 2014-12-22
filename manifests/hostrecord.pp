@@ -2,13 +2,13 @@
 define dnsmasq::hostrecord (
   $ip,
 ) {
-  include dnsmasq::params
+  if $ip =~ /\./ { validate_re($ip,'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$') }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-hostrecord-${name}":
     order   => '06',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/hostrecord.erb'),
   }
 

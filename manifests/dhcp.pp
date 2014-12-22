@@ -7,13 +7,20 @@ define dnsmasq::dhcp (
   $paramtag = undef,
   $paramset = undef
 ) {
-  include dnsmasq::params
+  $paramset_real = $paramset ? {
+    undef   => '',
+    default => "set:${paramset},",
+  }
+  $paramtag_real = $paramtag ? {
+    undef   => '',
+    default => "tag:${paramtag},",
+  }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-dhcprange-${name}":
     order   => '01',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcp.erb'),
   }
 

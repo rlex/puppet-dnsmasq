@@ -1,3 +1,1 @@
-<% if @mac != '' -%>
-<%= "dhcp-host=#{@mac},#{@ip},#{@name}\n" -%>
-<% end -%>
+dhcp-host=<%= @mac %>,<%= @ip %>,<%= @name %>

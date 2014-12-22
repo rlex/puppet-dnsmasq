@@ -5,9 +5,9 @@ define dnsmasq::mx (
   $hostname = undef,
   $preference = undef,
 ) {
-  include dnsmasq::params
+  if undef != $preference { validate_re($preference,'^\d+$') }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   $use_hostname = $hostname ? {
     undef   => '',
@@ -22,7 +22,7 @@ define dnsmasq::mx (
   concat::fragment { "dnsmasq-mx-${name}":
     # prevent "reordering" changes
     order   => "07_${mx_name}_${use_hostname}_${use_preference}",
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/mx.erb'),
   }
 

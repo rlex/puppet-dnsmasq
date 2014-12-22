@@ -3,13 +3,16 @@ define dnsmasq::dnsserver (
   $ip,
   $domain = undef,
 ) {
-  include dnsmasq::params
+  $domain_real = $domain ? {
+    undef   => '',
+    default => "/${domain}/",
+  }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-dnsserver-${name}":
     order   => '12',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/dnsserver.erb'),
   }
 }

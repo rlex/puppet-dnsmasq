@@ -3,13 +3,14 @@ define dnsmasq::dhcpstatic (
   $mac,
   $ip,
 ) {
-  include dnsmasq::params
+  validate_re($mac,'^\h{2}:\h{2}:\h{2}:\h{2}:\h{2}:\h{2}$')
+  if $ip =~ /\./ { validate_re($ip,'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$') }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-staticdhcp-${name}":
     order   => '04',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcpstatic.erb'),
   }
 

@@ -1,5 +1,1 @@
-<% if @dhcp_start != '' -%>
-<% tag = "tag:#{@paramtag}," if @paramtag -%>
-<% set = "set:#{@paramset}," if @paramset -%>
-dhcp-range=<%= "#{tag}#{set}#{@dhcp_start},#{@dhcp_end},#{@netmask},#{@lease_time}" %>
-<% end -%>
+dhcp-range=<%= @paramtag_real %><%= @paramset_real %><%= @dhcp_start %>,<%= @dhcp_end %>,<%= @netmask %>,<%= @lease_time %>

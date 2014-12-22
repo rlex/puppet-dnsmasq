@@ -1,4 +1,1 @@
-<% if @name != '' -%>
-<% domain_int = "/#{@domain}/" if @domain -%>
-<%= "server=#{domain_int}#{@ip}" %>
-<% end -%>
+server=<%= @domain_real %><%= @ip %>

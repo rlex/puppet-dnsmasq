@@ -1,3 +1,1 @@
-<% if @domain != '' -%>
-<%= "dns-rr=#{@domain},#{@type},#{@rdata}\n" -%>
-<% end -%>
+dns-rr=<%= @domain %>,<%= @type %>,<%= @rdata_real %>

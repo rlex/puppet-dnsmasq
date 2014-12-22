@@ -2,13 +2,13 @@
 define dnsmasq::address (
   $ip,
 ) {
-  include dnsmasq::params
+  if $ip =~ /\./ { validate_re($ip,'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$') }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-staticdns-${name}":
     order   => "06_${name}",
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/address.erb'),
   }
 

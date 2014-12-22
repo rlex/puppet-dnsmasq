@@ -5,13 +5,24 @@ define dnsmasq::dhcpboot (
   $hostname = undef,
   $bootserver = undef,
 ) {
-  include dnsmasq::params
+  $bootserver_real = $bootserver ? {
+    undef   => '',
+    default => ",${bootserver}",
+  }
+  $hostname_real = $hostname ? {
+    undef   => '',
+    default => ",${hostname}",
+  }
+  $paramtag_real = $paramtag ? {
+    undef   => '',
+    default => "tag:${paramtag},",
+  }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-dhcpboot-${name}":
     order   => '03',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcpboot.erb'),
   }
 

@@ -4,13 +4,17 @@ define dnsmasq::dnsrr (
   $type,
   $rdata
 ) {
-  include dnsmasq::params
+  validate_re($type,'^\w+$')
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  # Remove spaces or colons from rdata for consistency.
+  $rdata_real = regsubst($rdata,'[ :]','','G')
+  validate_re($rdata_real,'^\h+$')
+
+  include dnsmasq
 
   concat::fragment { "dnsmasq-dnsrr-${name}":
     order   => '11',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/dnsrr.erb'),
   }
 

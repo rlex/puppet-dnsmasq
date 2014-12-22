@@ -3,6 +3,6 @@ notifications:
   email:
     - me+travis@lex.io
 env:
-  - PUPPET_VERSION=2.6.14
   - PUPPET_VERSION=2.7.11
   - PUPPET_VERSION=3.1.1
+  - PUPPET_VERSION=3.7.0

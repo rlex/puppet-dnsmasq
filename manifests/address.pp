@@ -2,7 +2,7 @@
 define dnsmasq::address (
   $ip,
 ) {
-  if $ip =~ /\./ { validate_re($ip,'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$') }
+  if !is_ip_address($ip) { fail("Expect IP address for ip, got ${ip}") }
 
   include dnsmasq
 

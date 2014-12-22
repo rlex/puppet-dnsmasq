@@ -3,8 +3,8 @@ define dnsmasq::dhcpstatic (
   $mac,
   $ip,
 ) {
-  validate_re($mac,'^\h{2}:\h{2}:\h{2}:\h{2}:\h{2}:\h{2}$')
-  if $ip =~ /\./ { validate_re($ip,'^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$') }
+  if !is_ip_address($ip)  { fail("Expect IP address for ip, got ${ip}") }
+  if !is_ip_address($mac) { fail("Expect MAC address for mac, got ${mac}") }
 
   include dnsmasq
 

@@ -91,10 +91,18 @@ describe 'dnsmasq', :type => 'class' do
         'strict_order',
       ].each { |i|
         param = i.gsub('_','-')
+
         context "with #{i} = true" do
           let :params do { i => true } end
           it { should contain_concat__fragment('dnsmasq-header').with_content(
             /\n#{param}\n/
+          ) }
+        end
+
+        context "with #{i} = false" do
+          let :params do { i => false } end
+          it { should contain_concat__fragment('dnsmasq-header').with_content(
+            /(?!#{param})/
           ) }
         end
       }

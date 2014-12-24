@@ -16,7 +16,7 @@ describe 'dnsmasq::dhcpstatic', :type => 'define' do
 
   context 'with params' do
     let :params do {
-      :mac => '4c:72:b9:31:8c:b9',
+      :mac => '4C:72:B9:31:8C:B9',
       :ip  => '192.168.0.4',
     } end
     it do

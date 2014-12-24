@@ -1,14 +1,14 @@
-# Create an dnsmasq dnsrr record.
+# Create an dnsmasq dnsrr record (--dns-rr).
 define dnsmasq::dnsrr (
   $domain,
   $type,
-  $rdata
+  $rdata,
 ) {
-  validate_re($type,'^\w+$')
+  validate_re($type,'^[a-fA-F0-9]+$')
 
   # Remove spaces or colons from rdata for consistency.
-  $rdata_real = regsubst($rdata,'[ :]','','G')
-  validate_re($rdata_real,'^\h+$')
+  $rdata_real = downcase(regsubst($rdata,'[ :]','','G'))
+  validate_re($rdata_real,'^[a-f0-9]+$')
 
   include dnsmasq
 

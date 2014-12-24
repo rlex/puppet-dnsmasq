@@ -79,6 +79,25 @@ describe 'dnsmasq', :type => 'class' do
         it { should_not contain_exec('save_config_file') }
       end
 
+      # Test our booleans
+      [ 'bogus_priv',
+        'domain_needed',
+        'dhcp_no_override',
+        'enable_tftp',
+        'expand_hosts',
+        'no_hosts',
+        'no_negcache',
+        'read_ethers',
+        'strict_order',
+      ].each { |i|
+        param = i.gsub('_','-')
+        context "with #{i} = true" do
+          let :params do { i => true } end
+          it { should contain_concat__fragment('dnsmasq-header').with_content(
+            /\n#{param}\n/
+          ) }
+        end
+      }
     end
   }
 end

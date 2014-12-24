@@ -1,4 +1,5 @@
 # Configure the DNS server to query sub domains to external DNS servers
+# (--server).
 define dnsmasq::dnsserver (
   $ip,
   $domain = undef,

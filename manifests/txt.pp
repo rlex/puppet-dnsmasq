@@ -1,4 +1,4 @@
-# Create an dnsmasq txt record.
+# Create an dnsmasq txt record (--txt-record).
 define dnsmasq::txt(
   $value,
 ) {

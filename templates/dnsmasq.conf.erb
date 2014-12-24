@@ -1,15 +1,34 @@
-<%
+<%-
   # if something is set in config_hash that should be set in the parameters,
   # we move it there.
   # We could also _not_ do this, but that would be inconsistent. Also we get
   # the benefit of being able to COMPLETELY configure dnsmasq using a single
   # hash.
-  primary_keys = [ 'port', 'listen_address', 'interface', 'domain_needed',
-    'bogus_priv', 'strict_order', 'dhcp_boot', 'no_negcache',
-    'expand_hosts', 'no_hosts', 'domain', 'resolv_file', 'cache_size',
-    'dnsmasq_confdir', 'enable_tftp', 'tftp_root', 'no_dhcp_interface',
-    'dhcp_no_override', ]
-  primary_keys.each do |key_instance|
+  [ 'auth_ttl',
+    'bogus_priv',
+    'cache_size',
+    'dhcp_boot',
+    'dhcp_no_override',
+    'dnsmasq_confdir',
+    'domain',
+    'domain_needed',
+    'enable_tftp',
+    'expand_hosts',
+    'interface',
+    'listen_address',
+    'local_ttl',
+    'max_ttl',
+    'max_cache_ttl',
+    'neg_ttl',
+    'no_dhcp_interface',
+    'no_hosts',
+    'no_negcache',
+    'port',
+    'reead_ethers',
+    'resolv_file',
+    'strict_order',
+    'tftp_root',
+  ].each do |key_instance|
     [ key_instance, key_instance.gsub('_','-') ].each do |key|
       if @config_hash.include? key
         self.instance_variable_set("@#{key_instance}".to_sym, config_hash[key])
@@ -37,17 +56,17 @@ tftp-root=<%= @tftp_root -%>
 dhcp-boot=<%= @dhcp_boot %>
 <% end -%>
 <% if @listen_address -%>
-<% [@listen_address].flatten.compact.each do |addr| -%>
+<% Array(@listen_address).compact.each do |addr| -%>
 listen-address=<%= addr %>
 <% end -%>
 <% end -%>
 <% if @interface -%>
-<% [@interface].flatten.compact.each do |iface| -%>
+<% Array(@interface).compact.each do |iface| -%>
 interface=<%= iface %>
 <% end -%>
 <% end -%>
 <% if @no_dhcp_interface -%>
-<% [@no_dhcp_interface].flatten.compact.each do |iface| -%>
+<% Array(@no_dhcp_interface).compact.each do |iface| -%>
 no-dhcp-interface=<%= iface %>
 <% end -%>
 <% end -%>
@@ -86,6 +105,24 @@ auth-zone=<%= @auth_zone %>
 <% end -%>
 <% if @run_as_user -%>
 user=<%= @run_as_user %>
+<% end -%>
+<% if @local_ttl -%>
+local-ttl=<%= @local_ttl %>
+<% end -%>
+<% if @neg_ttl -%>
+neg-ttl=<%= @neg_ttl %>
+<% end -%>
+<% if @max_ttl -%>
+max-ttl=<%= @max_ttl %>
+<% end -%>
+<% if @max_cache_ttl -%>
+max-cache-ttl=<%= @max_cache_ttl %>
+<% end -%>
+<% if @auth_ttl -%>
+auth-ttl=<%= @auth_ttl %>
+<% end -%>
+<% if @read_ethers -%>
+read-ethers
 <% end -%>
 #MAIN CONFIG END
 

@@ -1,39 +1,46 @@
-# Primary class with options
+# Primary class with options.  See documentation at
+# http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
 class dnsmasq (
-  $interface                = undef,
-  $no_dhcp_interface        = undef,
-  $listen_address           = undef,
-  $domain                   = undef,
-  $expand_hosts             = true,
-  $port                     = '53',
-  $enable_tftp              = false,
-  $tftp_root                = '/var/lib/tftpboot',
-  $dhcp_boot                = undef,
-  $strict_order             = true,
-  $domain_needed            = true,
+  $auth_sec_servers         = undef,
+  $auth_server              = undef,
+  $auth_ttl                 = undef,
+  $auth_zone                = undef,
   $bogus_priv               = true,
-  $dhcp_no_override         = false,
-  $no_negcache              = false,
-  $no_hosts                 = false,
-  $resolv_file              = false,
   $cache_size               = 1000,
   $config_hash              = {},
-  $service_ensure           = 'running',
-  $service_enable           = true,
-  $auth_server              = undef,
-  $auth_sec_servers         = undef,
-  $auth_zone                = undef,
-  $run_as_user              = undef,
-  $restart                  = true,
-  $reload_resolvconf        = true,
-  $save_config_file         = true,
-  $dnsmasq_package_provider = $dnsmasq::params::dnsmasq_package_provider,
-  $dnsmasq_package          = $dnsmasq::params::dnsmasq_package,
+  $dhcp_boot                = undef,
+  $dhcp_no_override         = false,
+  $domain                   = undef,
+  $domain_needed            = true,
+  $dnsmasq_confdir          = $dnsmasq::params::dnsmasq_confdir,
   $dnsmasq_conffile         = $dnsmasq::params::dnsmasq_conffile,
   $dnsmasq_hasstatus        = $dnsmasq::params::dnsmasq_hasstatus,
   $dnsmasq_logdir           = $dnsmasq::params::dnsmasq_logdir,
+  $dnsmasq_package          = $dnsmasq::params::dnsmasq_package,
+  $dnsmasq_package_provider = $dnsmasq::params::dnsmasq_package_provider,
   $dnsmasq_service          = $dnsmasq::params::dnsmasq_service,
-  $dnsmasq_confdir          = $dnsmasq::params::dnsmasq_confdir,
+  $enable_tftp              = false,
+  $expand_hosts             = true,
+  $interface                = undef,
+  $listen_address           = undef,
+  $local_ttl                = undef,
+  $max_ttl                  = undef,
+  $max_cache_ttl            = undef,
+  $neg_ttl                  = undef,
+  $no_dhcp_interface        = undef,
+  $no_hosts                 = false,
+  $no_negcache              = false,
+  $port                     = '53',
+  $read_ethers              = false,
+  $reload_resolvconf        = true,
+  $resolv_file              = false,
+  $restart                  = true,
+  $run_as_user              = undef,
+  $save_config_file         = true,
+  $service_enable           = true,
+  $service_ensure           = 'running',
+  $strict_order             = true,
+  $tftp_root                = '/var/lib/tftpboot',
 ) inherits dnsmasq::params {
 
   ## VALIDATION
@@ -50,12 +57,21 @@ class dnsmasq (
     $save_config_file,
     $service_enable,
     $strict_order,
+    $read_ethers,
     $reload_resolvconf,
     $resolv_file,
     $restart
   )
   validate_hash($config_hash)
   validate_re($service_ensure,'^(running|stopped)$')
+  if undef != $auth_ttl      { validate_re($auth_ttl,'^[0-9]+') }
+  if undef != $local_ttl     { validate_re($local_ttl,'^[0-9]+') }
+  if undef != $neg_ttl       { validate_re($neg_ttl,'^[0-9]+') }
+  if undef != $max_ttl       { validate_re($max_ttl,'^[0-9]+') }
+  if undef != $max_cache_ttl { validate_re($max_cache_ttl,'^[0-9]+') }
+  if undef != $listen_address and !is_ip_address($listen_address) {
+    fail("Expect IP address for listen_address, got ${listen_address}")
+  }
 
   ## CLASS VARIABLES
 

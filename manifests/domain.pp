@@ -1,4 +1,4 @@
-# Create an dnsmasq domains.
+# Create a dnsmasq domain (--domain).
 define dnsmasq::domain (
   $subnet = undef,
   $local  = false,

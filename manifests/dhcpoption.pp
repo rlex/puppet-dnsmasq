@@ -1,4 +1,4 @@
-# Create an dnsmasq dhcp option.
+# Create an dnsmasq dhcp option (--dhcp-option).
 define dnsmasq::dhcpoption (
   $content,
   $paramtag = undef,

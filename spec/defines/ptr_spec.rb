@@ -14,8 +14,8 @@ describe 'dnsmasq::ptr', :type => 'define' do
     end
   end
 
-  context 'with hostname' do
-    let :params do { :hostname => 'example.com' } end
+  context 'with value' do
+    let :params do { :value => 'example.com' } end
     it do
       should contain_class('dnsmasq')
       should contain_concat__fragment('dnsmasq-ptr-foo.com').with(

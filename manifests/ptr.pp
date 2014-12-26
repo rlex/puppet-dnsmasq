@@ -1,6 +1,6 @@
 # Create an dnsmasq ptr record (--ptr-record).
 define dnsmasq::ptr (
-  $hostname,
+  $value,
 ) {
   include dnsmasq
 

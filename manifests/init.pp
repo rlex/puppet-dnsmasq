@@ -89,6 +89,7 @@ class dnsmasq (
 
   concat { 'dnsmasq.conf':
     path    => $dnsmasq_conffile,
+    warn    => true,
     require => Package['dnsmasq'],
   }
 

@@ -5,7 +5,7 @@ describe 'dnsmasq', :type => 'class' do
   shared_context 'supported' do
     it { should contain_concat('dnsmasq.conf'
                               ).that_requires('Package[dnsmasq]') }
-    it { should contain_concat__fragment('dnsmasq-header').only_with({
+    it { should contain_concat__fragment('dnsmasq-header').with({
       :name    => 'dnsmasq-header',
       :order   => '00',
       :target  => 'dnsmasq.conf',

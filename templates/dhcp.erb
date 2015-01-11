@@ -1,5 +1,9 @@
 <% if @dhcp_start != '' -%>
 <% tag = "tag:#{@paramtag}," if @paramtag -%>
 <% set = "set:#{@paramset}," if @paramset -%>
+<% if ! @options.kind_of?(Array) then @options = [ @options ]; end -%>
+<% @options.each do |option| -%>
+<%= option %>
+<% end -%>
 dhcp-range=<%= "#{tag}#{set}#{@dhcp_start},#{@dhcp_end},#{@netmask},#{@lease_time}" %>
 <% end -%>

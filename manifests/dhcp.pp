@@ -4,6 +4,7 @@ define dnsmasq::dhcp (
   $dhcp_end,
   $netmask,
   $lease_time,
+  $options = [],
   $paramtag = undef,
   $paramset = undef
 ) {

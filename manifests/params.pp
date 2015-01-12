@@ -1,36 +1,42 @@
 # Detect OS, set os-specific parameters
 class dnsmasq::params {
-  case $::operatingsystem {
-    'ubuntu', 'debian': {
-      $dnsmasq_conffile = '/etc/dnsmasq.conf'
-      $dnsmasq_logdir = '/var/log'
-      $dnsmasq_confdir = '/etc/dnsmasq.d'
-      $dnsmasq_service = 'dnsmasq'
-      $dnsmasq_package = 'dnsmasq'
-    }
-    'redhat', 'centos', 'scientific', 'fedora', 'OracleLinux': {
-      $dnsmasq_conffile = '/etc/dnsmasq.conf'
-      $dnsmasq_logdir = '/var/log'
-      $dnsmasq_confdir = '/etc/dnsmasq.d'
-      $dnsmasq_service = 'dnsmasq'
-      $dnsmasq_package = 'dnsmasq'
-    }
-    'darwin': {
-      $dnsmasq_conffile = '/opt/local/etc/dnsmasq.conf'
-      $dnsmasq_logdir  = '/opt/local/var/log/dnsmasq'
-      $dnsmasq_confdir = '/opt/local/etc/dnsmasq.d'
-      $dnsmasq_service = 'org.macports.dnsmasq'
-      $dnsmasq_package = 'dnsmasq'
-    }
-    'freebsd', 'dragonfly': {
-      $dnsmasq_conffile = '/usr/local/etc/dnsmasq.conf'
-      $dnsmasq_logdir  = '/var/log/dnsmasq'
-      $dnsmasq_confdir = '/usr/local/etc/dnsmasq.d'
-      $dnsmasq_service = 'dnsmasq'
-      $dnsmasq_package = 'dns/dnsmasq'
-    }
-    default: {
-      fail("Module ${module_name} is not supported on ${::operatingsystem}")
-    }
+  validate_re($::osfamily,[
+    '^Darwin$',
+    '^Debian$',
+    '^DragonFly$',
+    '^FreeBSD$',
+    '^RedHat$',
+  ],"Module ${module_name} is not supported on ${::operatingsystem}")
+
+  $dnsmasq_conffile = $::osfamily ? {
+    'Darwin'                => '/opt/local/etc/dnsmasq.conf',
+    /^(DragonFly|FreeBSD)$/ => '/usr/local/etc/dnsmasq.conf',
+    default                 => '/etc/dnsmasq.conf',
+  }
+  $dnsmasq_hasstatus = $::osfamily ? {
+    'RedHat' => true,
+    default  => false,
+  }
+  $dnsmasq_logdir = $::osfamily ? {
+    'Darwin'                => '/opt/local/var/log/dnsmasq',
+    /^(DragonFly|FreeBSD)$/ => '/var/log/dnsmasq',
+    default                 => '/var/log',
+  }
+  $dnsmasq_confdir = $::osfamily ? {
+    'Darwin'                => '/opt/local/etc/dnsmasq.d',
+    /^(DragonFly|FreeBSD)$/ => '/usr/local/etc/dnsmasq.d',
+    default                 => '/etc/dnsmasq.d',
+  }
+  $dnsmasq_service = $::osfamily ? {
+    'Darwin' => 'org.macports.dnsmasq',
+    default  => 'dnsmasq',
+  }
+  $dnsmasq_package = $::osfamily ? {
+    /^(DragonFly|FreeBSD)$/ => 'dns/dnsmasq',
+    default                 => 'dnsmasq',
+  }
+  $dnsmasq_package_provider = $::osfamily ? {
+    'Darwin' => 'macports',
+    default  => undef,
   }
 }

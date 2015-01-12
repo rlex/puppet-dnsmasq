@@ -1,14 +1,23 @@
-# Create an dnsmasq domains.
+# Create a dnsmasq domain (--domain).
 define dnsmasq::domain (
   $subnet = undef,
+  $local  = false,
 ) {
-  include dnsmasq::params
+  validate_bool($local)
+  include dnsmasq
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  $local_real = $local ? {
+    true  => ',local',
+    false => '',
+  }
+  $subnet_real = $subnet ? {
+    undef   => '',
+    default => ",${subnet}",
+  }
 
   concat::fragment { "dnsmasq-domain-${name}":
     order   => '05',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/domain.erb'),
   }
 

@@ -1,14 +1,14 @@
-# Create a dnsmasq A,AAAA and PTR record.
+# Create a dnsmasq A,AAAA and PTR record (--host-record).
 define dnsmasq::hostrecord (
   $ip,
 ) {
-  include dnsmasq::params
+  if !is_ip_address($ip) { fail("Expect IP address for ip, got ${ip}") }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-hostrecord-${name}":
     order   => '06',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/hostrecord.erb'),
   }
 

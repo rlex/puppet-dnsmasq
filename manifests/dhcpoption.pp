@@ -1,15 +1,18 @@
-# Create an dnsmasq dhcp option.
+# Create an dnsmasq dhcp option (--dhcp-option).
 define dnsmasq::dhcpoption (
   $content,
   $paramtag = undef,
 ) {
-  include dnsmasq::params
+  $paramtag_real = $paramtag ? {
+    undef   => '',
+    default => "tag:${paramtag},",
+  }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-dhcpoption-${name}":
     order   => '02',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcpoption.erb'),
   }
 

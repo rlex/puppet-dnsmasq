@@ -1,14 +1,15 @@
-# Create an dnsmasq A record.
+# Create a dnsmasq A record (--address).
 define dnsmasq::address (
   $ip,
 ) {
-  include dnsmasq::params
+  validate_slength($name,255) # hostnames cannot be longer
+  if !is_ip_address($ip) { fail("Expect IP address for ip, got ${ip}") }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  include dnsmasq
 
   concat::fragment { "dnsmasq-staticdns-${name}":
     order   => "06_${name}",
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/address.erb'),
   }
 

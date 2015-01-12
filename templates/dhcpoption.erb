@@ -1,4 +1,1 @@
-<% if @content != '' -%>
-<% tag = "tag:#{@paramtag}," if @paramtag -%>
-<%= "dhcp-option=#{tag}#{@name},#{@content}\n" -%>
-<% end -%>
+dhcp-option=<%= @paramtag_real %><%= @name %>,<%= @content %>

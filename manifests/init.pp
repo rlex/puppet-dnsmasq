@@ -1,70 +1,140 @@
-# Primary class with options
+# Primary class with options.  See documentation at
+# http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html
 class dnsmasq (
-  $interface = undef,
-  $no_dhcp_interface = undef,
-  $listen_address = undef,
-  $domain = undef,
-  $expand_hosts = true,
-  $port = '53',
-  $enable_tftp = false,
-  $tftp_root = '/var/lib/tftpboot',
-  $dhcp_boot = undef,
-  $strict_order = true,
-  $domain_needed = true,
-  $bogus_priv = true,
-  $dhcp_no_override = false,
-  $no_negcache = false,
-  $no_hosts = false,
-  $resolv_file = false,
-  $cache_size = 1000,
-  $confdir_path = '__default__',
-  $config_hash = {},
-  $service_ensure = 'running',
-  $service_enable = true,
-  $auth_server = undef,
-  $auth_sec_servers = undef,
-  $auth_zone = undef,
-  $run_as_user = undef,
-  $restart = true,
-  $reload_resolvconf = true,
-) {
+  $auth_sec_servers         = undef,
+  $auth_server              = undef,
+  $auth_ttl                 = undef,
+  $auth_zone                = undef,
+  $bogus_priv               = true,
+  $cache_size               = 1000,
+  $config_hash              = {},
+  $dhcp_boot                = undef,
+  $dhcp_no_override         = false,
+  $domain                   = undef,
+  $domain_needed            = true,
+  $dnsmasq_confdir          = $dnsmasq::params::dnsmasq_confdir,
+  $dnsmasq_conffile         = $dnsmasq::params::dnsmasq_conffile,
+  $dnsmasq_hasstatus        = $dnsmasq::params::dnsmasq_hasstatus,
+  $dnsmasq_logdir           = $dnsmasq::params::dnsmasq_logdir,
+  $dnsmasq_package          = $dnsmasq::params::dnsmasq_package,
+  $dnsmasq_package_provider = $dnsmasq::params::dnsmasq_package_provider,
+  $dnsmasq_service          = $dnsmasq::params::dnsmasq_service,
+  $enable_tftp              = false,
+  $expand_hosts             = true,
+  $interface                = undef,
+  $listen_address           = undef,
+  $local_ttl                = undef,
+  $max_ttl                  = undef,
+  $max_cache_ttl            = undef,
+  $neg_ttl                  = undef,
+  $no_dhcp_interface        = undef,
+  $no_hosts                 = false,
+  $no_negcache              = false,
+  $port                     = '53',
+  $read_ethers              = false,
+  $reload_resolvconf        = true,
+  $resolv_file              = false,
+  $restart                  = true,
+  $run_as_user              = undef,
+  $save_config_file         = true,
+  $service_enable           = true,
+  $service_ensure           = 'running',
+  $strict_order             = true,
+  $tftp_root                = '/var/lib/tftpboot',
+) inherits dnsmasq::params {
 
-  include dnsmasq::params
+  ## VALIDATION
 
-  validate_bool($service_enable)
-
-  # Localize some variables
-  $dnsmasq_package     = $dnsmasq::params::dnsmasq_package
-  $dnsmasq_conffile     = $dnsmasq::params::dnsmasq_conffile
-  $dnsmasq_logdir      = $dnsmasq::params::dnsmasq_logdir
-  $dnsmasq_service     = $dnsmasq::params::dnsmasq_service
-
-  if $confdir_path == '__default__' {
-    $dnsmasq_confdir = $dnsmasq::params::dnsmasq_confdir
-  } elsif $confdir_path {
-    $dnsmasq_confdir = $confdir_path
+  validate_bool(
+    $bogus_priv,
+    $dhcp_no_override,
+    $domain_needed,
+    $dnsmasq_hasstatus,
+    $enable_tftp,
+    $expand_hosts,
+    $no_hosts,
+    $no_negcache,
+    $save_config_file,
+    $service_enable,
+    $strict_order,
+    $read_ethers,
+    $reload_resolvconf,
+    $resolv_file,
+    $restart
+  )
+  validate_hash($config_hash)
+  validate_re($service_ensure,'^(running|stopped)$')
+  if undef != $auth_ttl      { validate_re($auth_ttl,'^[0-9]+') }
+  if undef != $local_ttl     { validate_re($local_ttl,'^[0-9]+') }
+  if undef != $neg_ttl       { validate_re($neg_ttl,'^[0-9]+') }
+  if undef != $max_ttl       { validate_re($max_ttl,'^[0-9]+') }
+  if undef != $max_cache_ttl { validate_re($max_cache_ttl,'^[0-9]+') }
+  if undef != $listen_address and !is_ip_address($listen_address) {
+    fail("Expect IP address for listen_address, got ${listen_address}")
   }
 
-  package { $dnsmasq_package:
+  ## CLASS VARIABLES
+
+  # Allow custom ::provider fact to override our provider, but only
+  # if it is undef.
+  $provider_real = empty($::provider) ? {
+    true    => $dnsmasq_package_provider ? {
+      undef   => $::provider,
+      default => $dnsmasq_package_provider,
+    },
+    default => $dnsmasq_package_provider,
+  }
+
+  ## MANAGED RESOURCES
+
+  concat { 'dnsmasq.conf':
+    path    => $dnsmasq_conffile,
+    warn    => true,
+    require => Package['dnsmasq'],
+  }
+
+  concat::fragment { 'dnsmasq-header':
+    order   => '00',
+    target  => 'dnsmasq.conf',
+    content => template('dnsmasq/dnsmasq.conf.erb'),
+  }
+
+  package { 'dnsmasq':
     ensure   => installed,
-    provider => $::provider,
-  }
-
-  # let's save the commented default config file after installation.
-  exec { 'save_config_file':
-    command => "cp ${dnsmasq_conffile} ${dnsmasq_conffile}.orig",
-    creates => "${dnsmasq_conffile}.orig",
-    path    => [ '/usr/bin', '/usr/sbin', '/bin', '/sbin', ],
-    require => Package[$dnsmasq_package],
-    before  => File[$dnsmasq_conffile],
+    name     => $dnsmasq_package,
+    provider => $provider_real,
+    before   => Service['dnsmasq'],
   }
 
   service { 'dnsmasq':
     ensure    => $service_ensure,
     name      => $dnsmasq_service,
     enable    => $service_enable,
-    hasstatus => false,
-    require   => Package[$dnsmasq_package],
+    hasstatus => $dnsmasq_hasstatus,
+  }
+
+  if $restart {
+    Concat['dnsmasq.conf'] ~> Service['dnsmasq']
+  }
+
+  if $dnsmasq_confdir {
+    file { $dnsmasq_confdir:
+      ensure => 'directory',
+      owner  => 0,
+      group  => 0,
+      mode   => '0755',
+    }
+  }
+
+  if $save_config_file {
+    # let's save the commented default config file after installation.
+    exec { 'save_config_file':
+      command => "cp ${dnsmasq_conffile} ${dnsmasq_conffile}.orig",
+      creates => "${dnsmasq_conffile}.orig",
+      path    => [ '/usr/bin', '/usr/sbin', '/bin', '/sbin', ],
+      require => Package['dnsmasq'],
+      before  => Concat['dnsmasq.conf'],
+    }
   }
 
   if $reload_resolvconf {
@@ -75,41 +145,14 @@ class dnsmasq (
       user     => root,
       onlyif   => 'test -f /sbin/resolvconf',
       before   => Service['dnsmasq'],
-      require  => Package[$dnsmasq_package],
-    }
-  }
-
-  if $dnsmasq_confdir {
-    file { $dnsmasq_confdir:
-      ensure => 'directory',
+      require  => Package['dnsmasq'],
     }
   }
 
   if ! $no_hosts {
     Host <||> {
-      notify +> Service[$dnsmasq::params::dnsmasq_service],
+      notify +> Service['dnsmasq'],
     }
   }
-
-  concat::fragment { 'dnsmasq-header':
-    order   => '00',
-    target  => $dnsmasq_conffile,
-    content => template('dnsmasq/dnsmasq.conf.erb'),
-    require => Package[$dnsmasq_package],
-  }
-
-  if $restart {
-    concat { $dnsmasq_conffile:
-      notify  => Service[$dnsmasq_service],
-      require => Package[$dnsmasq_package],
-    }
-  } else {
-    concat { $dnsmasq_conffile:
-      require => Package[$dnsmasq_package],
-    }
-  }
-
-
-
 }
 

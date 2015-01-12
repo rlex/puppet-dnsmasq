@@ -1,16 +1,22 @@
-# Create an dnsmasq srv record.
+# Create an dnsmasq srv record (--srv-host).
 define dnsmasq::srv (
   $hostname,
   $port,
   $priority = undef,
 ) {
-  include dnsmasq::params
+  validate_re($port,'^[0-9]+$')
+  if undef != $priority { validate_re($port,'^[0-9]+$') }
 
-  $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
+  $priority_real = $priority ? {
+    undef   => '',
+    default => ",${priority}",
+  }
+
+  include dnsmasq
 
   concat::fragment { "dnsmasq-srv-${name}":
     order   => '08',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/srv.erb'),
   }
 

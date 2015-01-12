@@ -3,3 +3,8 @@ pkg/
 *.swp
 *.swo
 *.old
+.vagrant
+Gemfile.lock
+results
+spec/fixtures/manifests
+coverage

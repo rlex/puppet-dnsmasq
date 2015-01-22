@@ -158,6 +158,7 @@ class dnsmasq (
       owner  => 0,
       group  => 0,
       mode   => '0644',
+      before => Service['dnsmasq'],
     }
   }
 

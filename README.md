@@ -45,6 +45,7 @@ class { 'dnsmasq':
   enable_tftp       => true,
   tftp_root         => '/var/lib/tftpboot',
   dhcp_boot         => 'pxelinux.0',
+  dns_forward_max   => 1500,
   domain_needed     => true,
   bogus_priv        => true,
   no_negcache       => true,

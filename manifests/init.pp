@@ -12,6 +12,7 @@ class dnsmasq (
   $dhcp_no_override         = false,
   $domain                   = undef,
   $domain_needed            = true,
+  $dns_forward_max          = undef,
   $dnsmasq_confdir          = $dnsmasq::params::dnsmasq_confdir,
   $dnsmasq_conffile         = $dnsmasq::params::dnsmasq_conffile,
   $dnsmasq_hasstatus        = $dnsmasq::params::dnsmasq_hasstatus,

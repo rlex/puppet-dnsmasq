@@ -25,6 +25,7 @@ class dnsmasq (
   $interface                = undef,
   $listen_address           = undef,
   $local_ttl                = undef,
+  $manage_tftp_root         = false,
   $max_ttl                  = undef,
   $max_cache_ttl            = undef,
   $neg_ttl                  = undef,
@@ -53,6 +54,7 @@ class dnsmasq (
     $dnsmasq_hasstatus,
     $enable_tftp,
     $expand_hosts,
+    $manage_tftp_root,
     $no_hosts,
     $no_negcache,
     $save_config_file,
@@ -147,6 +149,15 @@ class dnsmasq (
       onlyif   => 'test -f /sbin/resolvconf',
       before   => Service['dnsmasq'],
       require  => Package['dnsmasq'],
+    }
+  }
+
+  if $manage_tftp_root {
+    file { $tftp_root:
+      ensure => directory,
+      owner  => 0,
+      group  => 0,
+      mode   => '0644',
     }
   }
 

@@ -9,6 +9,7 @@
     'cache_size',
     'dhcp_boot',
     'dhcp_no_override',
+    'dns_forward_max',
     'dnsmasq_confdir',
     'domain',
     'domain_needed',
@@ -123,6 +124,9 @@ auth-ttl=<%= @auth_ttl %>
 <% end -%>
 <% if @read_ethers -%>
 read-ethers
+<% end -%>
+<% if @dns_forward_max -%>
+dns-forward-max=<%= @dns_forward_max %>
 <% end -%>
 #MAIN CONFIG END
 

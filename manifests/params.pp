@@ -6,6 +6,7 @@ class dnsmasq::params {
     '^DragonFly$',
     '^FreeBSD$',
     '^RedHat$',
+    '^Amazon',
   ],"Module ${module_name} is not supported on ${::operatingsystem}")
 
   $dnsmasq_conffile = $::osfamily ? {

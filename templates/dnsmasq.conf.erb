@@ -84,7 +84,9 @@ dhcp-no-override
 no-hosts
 <% end -%>
 <% if @domain -%>
-domain=<%= @domain %>
+  <%- Array(@domain).compact.each do |dom| -%>
+domain=<%= dom %>
+  <%- end -%>
 <% end -%>
 <% if @resolv_file -%>
 resolv-file=<%= @resolv_file %>

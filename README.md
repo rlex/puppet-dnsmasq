@@ -55,10 +55,11 @@ class { 'dnsmasq':
 Please refer to [dnsmasq man page](http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html) to get exact syntax and options
 
 Core variables:
+
 Variable      | Type          | Default | Description
 ------------- | ------------- | ------------ | -----------
-$auth_sec_servers | string     | undef | sec servers
-$auth_server  | string        | undef | desc
+$auth_sec_servers | string | undef | sec servers
+$auth_server  | string  | undef | desc
 $auth_ttl     | string | undef | desc
 $auth_zone    | string | undef | desc
 $bogus_priv | boolean | true | Desc

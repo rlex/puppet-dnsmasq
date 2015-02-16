@@ -21,18 +21,14 @@ It features some advanced features like:
 * puppetlabs/concat >= 1.0.0
 * puppetlabs/stdlib
 
-### STATUS
+### BUILD STATUS
 [![Build Status](https://travis-ci.org/rlex/puppet-dnsmasq.svg?branch=master)](https://travis-ci.org/rlex/puppet-dnsmasq)
-
-### TODO
-
-* Unset as much as possible from base class by default
 
 ### Basic class
 
 Will install dnsmasq to act as DNS and TFTP (if specified) server
 
-All possible options shown here
+Example basic class config. Please refer to table below to see all possible variables
 
 ```puppet
 class { 'dnsmasq':
@@ -56,6 +52,60 @@ class { 'dnsmasq':
 }
 ```
 
+Please refer to [dnsmasq man page](http://www.thekelleys.org.uk/dnsmasq/docs/dnsmasq-man.html) to get exact syntax and options
+
+Core variables:
+Variable      | Type          | Default | Description
+------------- | ------------- | ------- | --------
+$auth_sec_servers | string     | undef | sec servers
+$auth_server  | string        | undef | desc
+$auth_ttl     | string | undef | desc
+$auth_zone    | string | undef | desc
+$bogus_priv | boolean | true | Desc
+$cache_size | boolean | 1000 | Desc
+$config_hash | array | undef | Desc
+$dhcp_boot | bool | true | Desc
+$dhcp_leasefile | boolean | true | Desc
+$dhcp_no_override | boolean | false | Desc
+$domain | string | undef | Desc
+$domain_needed | boolean | false | Desc
+$dns_forward_max | string | undef | Desc
+$enable_tftp | boolean | undef | Desc
+$expand_hosts | bool | true | Desc
+$interface | string | undef | Desc
+$listen_address | string | undef | Desc
+$local_ttl | string | undef | Desc
+$max_ttl | string | undef | Desc
+$max_cache_ttl | string | undef | Desc
+$neg_ttl | string | undef | Desc
+$do_dhcp_interface | string | undef | Desc
+$no_hosts | string | undef | Desc
+$no_negcache | string | undef | Desc
+$port | string | 53 | Desc
+$read_ethers | boolean | false | Desc
+$reload_resolvconf | boolean | true | Desc
+$resolv_file | boolean | false | Desc
+$restart | boolean | true | Restart on config change
+$run_as_user | string | undef | force dnsmasq under specific user
+$save_config_file | boolean | true | Backup original config file
+$service_enable | boolean | true | Start dnsmasq at boot
+$service_ensure | string | running | Ensure service state
+$strict_order | boolean | true | Desc
+$tftp_root | string | /var/lib/tftpboot | Only if $dhcp_boot = true
+
+
+There is also optional variables to override system-provided paths and names:
+
+Variable      | Type          | Default | Desc
+------------- | ------------- | ------- | --------
+$dnsmasq_confdir | string | undef | Desc
+$dnsmasq_conffile | string | undef | Desc
+$dnsmasq_hasstatus | string | undef | Desc
+$dnsmasq_logdir | string | undef | Desc
+$dnsmasq_package | string | undef | Desc
+$dnsmasq_package_provider | string | undef | Desc
+$dnsmasq_service | string | undef | Desc
+
 ### DHCP server configuration
 
 Will add DHCP support to dnsmasq.
@@ -63,7 +113,7 @@ This can be used multiple times to setup multiple DHCP servers.
 Parameter "paramset" is optional, this one makes use of tagging system in dnsmasq
 
 ```puppet
-dnsmasq::dhcp { 'dhcp': 
+dnsmasq::dhcp { 'dhcp':
   paramset   => 'hadoop0' #optional
   dhcp_start => '192.168.1.100',
   dhcp_end   => '192.168.1.200',

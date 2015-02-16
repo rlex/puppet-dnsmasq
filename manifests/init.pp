@@ -9,6 +9,7 @@ class dnsmasq (
   $cache_size               = 1000,
   $config_hash              = {},
   $dhcp_boot                = undef,
+  $dhcp_leasefile           = undef,
   $dhcp_no_override         = false,
   $domain                   = undef,
   $domain_needed            = true,

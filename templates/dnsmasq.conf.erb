@@ -9,6 +9,7 @@
     'cache_size',
     'dhcp_boot',
     'dhcp_no_override',
+    'dhcp_leasefile',
     'dns_forward_max',
     'dnsmasq_confdir',
     'domain',
@@ -55,6 +56,9 @@ tftp-root=<%= @tftp_root -%>
 <% end %>
 <% if @dhcp_boot -%>
 dhcp-boot=<%= @dhcp_boot %>
+<% end -%>
+<% if @dhcp_leasefile -%>
+dhcp-leasefile=<%= @dhcp_leasefile %>
 <% end -%>
 <% if @listen_address -%>
 <% Array(@listen_address).compact.each do |addr| -%>

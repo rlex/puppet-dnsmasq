@@ -56,7 +56,7 @@ Please refer to [dnsmasq man page](http://www.thekelleys.org.uk/dnsmasq/docs/dns
 
 Core variables:
 Variable      | Type          | Default | Description
-------------- | ------------- | ------- | --------
+------------- | ------------- | ------------ | -----------
 $auth_sec_servers | string     | undef | sec servers
 $auth_server  | string        | undef | desc
 $auth_ttl     | string | undef | desc

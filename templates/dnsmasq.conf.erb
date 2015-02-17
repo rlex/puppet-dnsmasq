@@ -78,6 +78,9 @@ no-dhcp-interface=<%= iface %>
 <% if @no_negcache -%>
 no-negcache
 <% end -%>
+<% if @no_resolv -%>
+no-resolv
+<% end -%>
 <% if @expand_hosts -%>
 expand-hosts
 <% end -%>

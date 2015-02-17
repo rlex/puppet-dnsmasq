@@ -87,6 +87,7 @@ describe 'dnsmasq', :type => 'class' do
         'expand_hosts',
         'no_hosts',
         'no_negcache',
+        'no_resolv',
         'read_ethers',
         'strict_order',
       ].each { |i|

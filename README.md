@@ -80,8 +80,9 @@ $max_ttl | string | undef | Desc
 $max_cache_ttl | string | undef | Desc
 $neg_ttl | string | undef | Desc
 $do_dhcp_interface | string | undef | Desc
-$no_hosts | string | undef | Desc
-$no_negcache | string | undef | Desc
+$no_hosts | boolean | false | Desc
+$no_negcache | boolean | false | Desc
+$no_resolv | boolean | false
 $port | string | 53 | Desc
 $read_ethers | boolean | false | Desc
 $reload_resolvconf | boolean | true | Desc

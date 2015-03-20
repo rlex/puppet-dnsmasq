@@ -63,7 +63,6 @@ class dnsmasq (
     $strict_order,
     $read_ethers,
     $reload_resolvconf,
-    $resolv_file,
     $restart
   )
   validate_hash($config_hash)

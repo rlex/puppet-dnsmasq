@@ -1,5 +1,6 @@
 # Create an dnsmasq dhcp option (--dhcp-option).
 define dnsmasq::dhcpoption (
+  $option,
   $content,
   $tag = undef,
 ) {

@@ -219,7 +219,8 @@ Will add dhcp option. Can be used for all types of options, ie:
 Can be used multiple times.
 
 ```puppet
-dnsmasq::dhcpoption { 'option:router':
+dnsmasq::dhcpoption { 'my-awesome-dhcp-option':
+  option  => 'option:router'
   content => '192.168.1.1',
   tag     => 'sometag', #optional
 }
@@ -278,7 +279,7 @@ dnsmasq::dnsrr { 'example-sshfp':
 }
 ```
 
-###Running in Docker containers
+### Running in Docker containers
 When running in a Docker container, dnsmasq tries to drop root privileges. This causes the following error:
 ```
 dnsmasq: setting capabilities failed: Operation not permitted

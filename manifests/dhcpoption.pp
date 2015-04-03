@@ -1,11 +1,11 @@
 # Create an dnsmasq dhcp option (--dhcp-option).
 define dnsmasq::dhcpoption (
   $content,
-  $paramtag = undef,
+  $tag = undef,
 ) {
-  $paramtag_real = $paramtag ? {
+  $tag_real = $tag ? {
     undef   => '',
-    default => "tag:${paramtag},",
+    default => "tag:${tag},",
   }
 
   include dnsmasq

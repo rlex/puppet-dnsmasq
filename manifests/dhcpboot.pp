@@ -2,7 +2,7 @@
 # booting (--dhcp-boot).
 define dnsmasq::dhcpboot (
   $file,
-  $paramtag   = undef,
+  $tag   = undef,
   $hostname   = undef,
   $bootserver = undef,
 ) {
@@ -14,9 +14,9 @@ define dnsmasq::dhcpboot (
     undef   => '',
     default => ",${hostname}",
   }
-  $paramtag_real = $paramtag ? {
+  $tag_real = $tag ? {
     undef   => '',
-    default => "tag:${paramtag},",
+    default => "tag:${tag},",
   }
 
   include dnsmasq

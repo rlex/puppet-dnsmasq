@@ -33,7 +33,7 @@ describe 'dnsmasq::dhcpboot', :type => 'define' do
       :file       => '/foo',
       :hostname   => 'example.com',
       :bootserver => '192.168.0.4',
-      :paramtag   => 'bar',
+      :tag   => 'bar',
     } end
     it do
       should contain_class('dnsmasq')

@@ -112,11 +112,11 @@ $dnsmasq_service | string | undef | Desc
 
 Will add DHCP support to dnsmasq.
 This can be used multiple times to setup multiple DHCP servers.
-Parameter "paramset" is optional, this one makes use of tagging system in dnsmasq
+Parameter "set" is optional, this one makes use of tagging system in dnsmasq
 
 ```puppet
 dnsmasq::dhcp { 'dhcp':
-  paramset   => 'hadoop0' #optional
+  set   => 'hadoop0' #optional
   dhcp_start => '192.168.1.100',
   dhcp_end   => '192.168.1.200',
   netmask    => '255.255.255.0',
@@ -221,20 +221,20 @@ Can be used multiple times.
 ```puppet
 dnsmasq::dhcpoption { 'option:router':
   content => '192.168.1.1',
-  paramtag => 'sometag', #optional
+  tag => 'sometag', #optional
 }
 ```
 
 ### DHCP booting (PXE)
 
 Allows you to setup different PXE servers in different subnets.
-paramtag is optional, you can use this to specify subnet for bootserver, 
+tag is optional, you can use this to specify subnet for bootserver, 
 using tag you previously specified in dnsmasq::dhcp  
 Can be used multiple times.
 
 ```puppet
 dnsmasq::dhcpboot { 'hadoop-pxe':
-  paramtag   => 'hadoop0', #optional
+  tag   => 'hadoop0', #optional
   file       => 'pxelinux.0', 
   hostname   => 'newoffice', #optional
   bootserver => '192.168.39.1' #optional

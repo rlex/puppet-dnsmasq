@@ -5,16 +5,16 @@ define dnsmasq::dhcp (
   $dhcp_end,
   $netmask,
   $lease_time,
-  $paramtag = undef,
-  $paramset = undef,
+  $tag = undef,
+  $set = undef,
 ) {
-  $paramset_real = $paramset ? {
+  $set_real = $set ? {
     undef   => '',
-    default => "set:${paramset},",
+    default => "set:${set},",
   }
-  $paramtag_real = $paramtag ? {
+  $tag_real = $tag ? {
     undef   => '',
-    default => "tag:${paramtag},",
+    default => "tag:${tag},",
   }
 
   include dnsmasq

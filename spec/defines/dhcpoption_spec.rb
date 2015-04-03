@@ -30,7 +30,7 @@ describe 'dnsmasq::dhcpoption', :type => 'define' do
   context 'with all parms' do
     let :params do {
       :content  => '192.168.0.4',
-      :paramtag => 'foo',
+      :tag => 'foo',
     } end
     it do
       should contain_class('dnsmasq')

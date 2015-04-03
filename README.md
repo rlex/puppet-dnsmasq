@@ -1,6 +1,6 @@
 ### DESCRIPTION
 
-I wrote this module in need of managing bunch of servers running dnsmasq. 
+I wrote this module in need of managing bunch of servers running dnsmasq.
 
 It features some advanced features like:
 
@@ -59,54 +59,54 @@ Core variables:
 Variable      | Type          | Default | Description
 ------------- | ------------- | ------------ | -----------
 $auth_sec_servers | string | undef | sec servers
-$auth_server  | string  | undef | desc
-$auth_ttl     | string | undef | desc
-$auth_zone    | string | undef | desc
-$bogus_priv | boolean | true | Desc
-$cache_size | boolean | 1000 | Desc
-$config_hash | array | undef | Desc
-$dhcp_boot | bool | true | Desc
-$dhcp_leasefile | boolean | true | Desc
-$dhcp_no_override | boolean | false | Desc
-$domain | string | undef | Desc
-$domain_needed | boolean | false | Desc
-$dns_forward_max | string | undef | Desc
-$enable_tftp | boolean | undef | Desc
-$expand_hosts | bool | true | Desc
-$interface | string | undef | Desc
-$listen_address | string | undef | Desc
-$local_ttl | string | undef | Desc
-$max_ttl | string | undef | Desc
-$max_cache_ttl | string | undef | Desc
-$neg_ttl | string | undef | Desc
-$do_dhcp_interface | string | undef | Desc
-$no_hosts | boolean | false | Desc
-$no_negcache | boolean | false | Desc
-$no_resolv | boolean | false
-$port | string | 53 | Desc
-$read_ethers | boolean | false | Desc
+$auth_server | string  | undef | Enable auth server mode
+$auth_ttl | string | undef | Override TTL value of auth server
+$auth_zone | string | undef | DNS zone for auth mode
+$bogus_priv | boolean | true | Bogus private reverse lookups
+$cache_size | boolean | 1000 | Size of dns cache
+$config_hash | array | undef | puppet config hash
+$dhcp_boot | bool | true | Enable tftp booting
+$dhcp_leasefile | boolean | true | DHCP leases file location
+$dhcp_no_override | boolean | false | Disable re-use of the DHCP servername
+$domain | string | undef | Network domain
+$domain_needed | boolean | false | Do not forward A/AAAA without domain
+$dns_forward_max | string | undef | maximum number of concurrent DNS queries
+$enable_tftp | boolean | undef | TFTP boot support
+$expand_hosts | bool | true | Add the domain to simple names
+$interface | string/array | undef | Listening interface
+$listen_address | string | undef | Listening IP address
+$local_ttl | string | undef | Local time to live
+$max_ttl | string | undef | Maximum time to live
+$max_cache_ttl | string | undef | Maximum TTL for entries in cache
+$neg_ttl | string | undef | Negative cache timeout
+$do_dhcp_interface | string | undef | TBD
+$no_hosts | boolean | false | Ignore /etc/hosts file
+$no_negcache | boolean | false | Do not cache negative responses
+$no_resolv | boolean | false | Ignore resolv.conf file
+$port | string | 53 | Listening port
+$read_ethers | boolean | false | Read /etc/ethers for information about hosts
 $reload_resolvconf | boolean | true | Desc
-$resolv_file | boolean | false | Desc
+$resolv_file | boolean | false | Location of resolv.conf file
 $restart | boolean | true | Restart on config change
 $run_as_user | string | undef | force dnsmasq under specific user
 $save_config_file | boolean | true | Backup original config file
 $service_enable | boolean | true | Start dnsmasq at boot
 $service_ensure | string | running | Ensure service state
-$strict_order | boolean | true | Desc
-$tftp_root | string | /var/lib/tftpboot | Only if $dhcp_boot = true
+$strict_order | boolean | true | Use DNS servers order of resolv.conf
+$tftp_root | string | /var/lib/tftpboot | Location of tftp boot files
 
 
 There is also optional variables to override system-provided paths and names:
 
 Variable      | Type          | Default | Desc
 ------------- | ------------- | ------- | --------
-$dnsmasq_confdir | string | undef | Desc
-$dnsmasq_conffile | string | undef | Desc
-$dnsmasq_hasstatus | string | undef | Desc
-$dnsmasq_logdir | string | undef | Desc
-$dnsmasq_package | string | undef | Desc
-$dnsmasq_package_provider | string | undef | Desc
-$dnsmasq_service | string | undef | Desc
+$dnsmasq_confdir | string | sys-dependent | Configuration directory location
+$dnsmasq_conffile | string | sys-dependent | Configuration file location
+$dnsmasq_hasstatus | string | sys-dependent | init.d status support
+$dnsmasq_logdir | string | sys-dependent | dnsmasq log directory
+$dnsmasq_package | string | sys-dependent | dnsmasq package name
+$dnsmasq_package_provider | sys-dependent | undef | package system provider
+$dnsmasq_service | string | sys-dependent | Name of init.d service
 
 ### DHCP server configuration
 
@@ -116,7 +116,7 @@ Parameter "set" is optional, this one makes use of tagging system in dnsmasq
 
 ```puppet
 dnsmasq::dhcp { 'dhcp':
-  set   => 'hadoop0' #optional
+  set        => 'hadoop0' #optional
   dhcp_start => '192.168.1.100',
   dhcp_end   => '192.168.1.200',
   netmask    => '255.255.255.0',
@@ -156,7 +156,7 @@ dnsmasq::address { "example-host-dns.int.lan":
 }
 ```
 
-### CNAME records 
+### CNAME records
 Will add canonical name record.
 Please note that dnsmasq cname is NOT regular cname and can be only for targets
 which are names from DHCP leases or /etc/hosts, so it's more like alias for hostname
@@ -189,7 +189,7 @@ dnsmasq::mx { "maildomain.com":
 }
 ```
 
-### PTR records 
+### PTR records
 Allows you to create PTR records for rDNS and DNS-SD.
 
 ```puppet
@@ -221,21 +221,21 @@ Can be used multiple times.
 ```puppet
 dnsmasq::dhcpoption { 'option:router':
   content => '192.168.1.1',
-  tag => 'sometag', #optional
+  tag     => 'sometag', #optional
 }
 ```
 
 ### DHCP booting (PXE)
 
 Allows you to setup different PXE servers in different subnets.
-tag is optional, you can use this to specify subnet for bootserver, 
-using tag you previously specified in dnsmasq::dhcp  
+tag is optional, you can use this to specify subnet for bootserver,
+using tag you previously specified in dnsmasq::dhcp
 Can be used multiple times.
 
 ```puppet
 dnsmasq::dhcpboot { 'hadoop-pxe':
-  tag   => 'hadoop0', #optional
-  file       => 'pxelinux.0', 
+  tag        => 'hadoop0', #optional
+  file       => 'pxelinux.0',
   hostname   => 'newoffice', #optional
   bootserver => '192.168.39.1' #optional
 }
@@ -268,7 +268,7 @@ dnsmasq::dnsserver { 'forward-zone':
 }
 ```
 
-### DNS-RR records 
+### DNS-RR records
 Allows dnsmasq to serve arbitrary records, for example:
 ```puppet
 dnsmasq::dnsrr { 'example-sshfp':

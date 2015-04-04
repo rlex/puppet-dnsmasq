@@ -105,7 +105,7 @@ $dnsmasq_conffile | string | Configuration file location
 $dnsmasq_hasstatus | string | init.d status support
 $dnsmasq_logdir | string | dnsmasq log directory
 $dnsmasq_package | string | dnsmasq package name
-$dnsmasq_package_provider | package system provider
+$dnsmasq_package_provider | string | package system provider
 $dnsmasq_service | string | Name of init.d service
 
 ### DHCP server configuration

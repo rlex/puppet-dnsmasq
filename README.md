@@ -138,11 +138,12 @@ dnsmasq::dhcpstatic { 'example-host':
 
 ### Host record configuration
 
-Will add static A, AAAA and PTR record
+Will add static A, AAAA (if provided) and PTR record
 
 ```puppet
 dnsmasq::hostrecord { "example-host-dns,example-host-dns.int.lan":
-  ip  => '192.168.1.20',
+  ip   => '192.168.1.20',
+  ipv6 => 'FE80:0000:0000:0000:0202:B3FF:FE1E:8329' #optional
 }
 ```
 
@@ -212,9 +213,9 @@ dnsmasq::txt { "_http._tcp.example.com":
 
 Will add dhcp option. Can be used for all types of options, ie:
 
-* numeric ( dnsmasq::dhcpoption { '53': ... }
-* ipv4-option ( dnsmasq::dhcpoption { 'option:router': ... }
-* ipv6-option ( dnsmasq::dhcpoption { 'option6:dns-server': ... }
+* numeric ( option => '53' )
+* ipv4-option ( option => 'option:router' )
+* ipv6-option ( option => 'option6:dns-server' )
 
 Can be used multiple times.
 

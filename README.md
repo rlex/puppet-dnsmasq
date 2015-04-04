@@ -98,8 +98,8 @@ $tftp_root | string | /var/lib/tftpboot | Location of tftp boot files
 
 There is also optional variables to override system-provided paths and names:
 
-Variable      | Type          | Default | Desc
-------------- | ------------- | ------- | --------
+Variable      | Type          | Desc
+------------- | ------------- | --------
 $dnsmasq_confdir | string | Configuration directory location
 $dnsmasq_conffile | string | Configuration file location
 $dnsmasq_hasstatus | string | init.d status support

@@ -69,7 +69,7 @@ $dhcp_boot | bool | true | Enable tftp booting
 $dhcp_leasefile | boolean | true | DHCP leases file location
 $dhcp_no_override | boolean | false | Disable re-use of the DHCP servername
 $domain | string | undef | Network domain
-$domain_needed | boolean | false | Do not forward A/AAAA without domain
+$domain_needed | boolean | false | Do not forward A/AAAA without domain part
 $dns_forward_max | string | undef | maximum number of concurrent DNS queries
 $enable_tftp | boolean | undef | TFTP boot support
 $expand_hosts | bool | true | Add the domain to simple names
@@ -79,13 +79,13 @@ $local_ttl | string | undef | Local time to live
 $max_ttl | string | undef | Maximum time to live
 $max_cache_ttl | string | undef | Maximum TTL for entries in cache
 $neg_ttl | string | undef | Negative cache timeout
-$do_dhcp_interface | string | undef | TBD
+$no_dhcp_interface | string/array | undef | Do not use DHCP on interface
 $no_hosts | boolean | false | Ignore /etc/hosts file
 $no_negcache | boolean | false | Do not cache negative responses
 $no_resolv | boolean | false | Ignore resolv.conf file
 $port | string | 53 | Listening port
 $read_ethers | boolean | false | Read /etc/ethers for information about hosts
-$reload_resolvconf | boolean | true | Desc
+$reload_resolvconf | boolean | true | Update resolvconf on changes
 $resolv_file | boolean | false | Location of resolv.conf file
 $restart | boolean | true | Restart on config change
 $run_as_user | string | undef | force dnsmasq under specific user
@@ -100,13 +100,13 @@ There is also optional variables to override system-provided paths and names:
 
 Variable      | Type          | Default | Desc
 ------------- | ------------- | ------- | --------
-$dnsmasq_confdir | string | sys-dependent | Configuration directory location
-$dnsmasq_conffile | string | sys-dependent | Configuration file location
-$dnsmasq_hasstatus | string | sys-dependent | init.d status support
-$dnsmasq_logdir | string | sys-dependent | dnsmasq log directory
-$dnsmasq_package | string | sys-dependent | dnsmasq package name
-$dnsmasq_package_provider | sys-dependent | undef | package system provider
-$dnsmasq_service | string | sys-dependent | Name of init.d service
+$dnsmasq_confdir | string | Configuration directory location
+$dnsmasq_conffile | string | Configuration file location
+$dnsmasq_hasstatus | string | init.d status support
+$dnsmasq_logdir | string | dnsmasq log directory
+$dnsmasq_package | string | dnsmasq package name
+$dnsmasq_package_provider | package system provider
+$dnsmasq_service | string | Name of init.d service
 
 ### DHCP server configuration
 

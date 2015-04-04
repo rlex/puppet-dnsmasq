@@ -1,11 +1,26 @@
+### MASTER
+
+This is API breaking update! Please consult readme & adjust your configs!
+
+* [MISC] alot of refactoring, thanks to decibelhertz @ github
+* [SYNTAX] paramtag is now tag
+* [SYNTAX] paramset is now set
+* [SYNTAX] ::dhcpoption now uses 'option' variable instead of 'name' for option
+* [FEATURE] ::dnsserver now supports "port" variable
+* [FEATURE] domain variable can now be passed as array for multiple domains
+* [FEATURE] no_resolv parameter in dnsmasq class
+* [FEATURE] dhcp_leasefile parameter in dnsmasq class
+* [FEATURE] dns_forward_max variable in dnsmasq class
+* [FIX] proper license name
+
 ### 2.6.1
 
-* [DOCS] Add info about new ::dnsserver 
+* [DOCS] Add info about new ::dnsserver
 
 ### 2.6.0
 This version's contibutors: bwalex @ github and funnymanva @ github.
 
-* [FEATURE] add hook for resolvconf -u 
+* [FEATURE] add hook for resolvconf -u
 * [FEATURE] dragonfly BSD support
 * [FEATURE] dns-rr records support
 * [FEATURE] add support for authoritative mode
@@ -19,8 +34,8 @@ Thanks to Axel Bock ( flypenguin @ github ) for most of changes in this patch.
 * [FEATURE] dnsmasq::dnsserver can now be used without domain (by default)
 * [FEATURE] Ability to configure dnsmasq completely using a config_hash option
 * [FEATURE] Save original config before replacing it with puppet-generated
-* [FEATURE] Use a generic service name 
-* [FEATURE] Make service state configurable 
+* [FEATURE] Use a generic service name
+* [FEATURE] Make service state configurable
 * [FEATURE] Confdir is now optional
 * [FEATURE] Most of variables in dnsserver::mx is now optional
 * [FEATURE] Validate IP using stdlib
@@ -69,7 +84,7 @@ Thanks to Thomas Bétrancourt (rclsilver @ github) for that fixes/additions
 * [FEATURE] dnsmasq::dhcpboot added to customize PXE booting for specific hosts/subnets
 * [FEATURE] interface, listen_address and domain is now optional, undefined by default
 * [FEATURE] dnsmasq::domain added to specify domain name for different subnets
-* [FEATURE] tag and set options added to dnsmasq::dhcp and dnsmasq::dhcpboot 
+* [FEATURE] tag and set options added to dnsmasq::dhcp and dnsmasq::dhcpboot
 * [BUGFIX] several DHCP instances can be added now
 * [BUGFIX] added forgotten concat dependency
 * [BUGFIX] conf.d dir can now be used with system default
@@ -78,7 +93,7 @@ Thanks to Thomas Bétrancourt (rclsilver @ github) for that fixes/additions
 ### 1.1.2
 
 * [FEATURE] DHCP server now supports netmask
-* [API] dnsmasq::dhcp now requires netmask, check readme 
+* [API] dnsmasq::dhcp now requires netmask, check readme
 
 ### 1.1.1
 

@@ -267,6 +267,7 @@ Or, to query specific zone
 dnsmasq::dnsserver { 'forward-zone':
   domain => "dumb.domain.tld",
   ip => "192.168.39.1",
+  port => '9001', #optional
 }
 ```
 

@@ -113,10 +113,12 @@ $dnsmasq_service | string | Name of init.d service
 Will add DHCP support to dnsmasq.
 This can be used multiple times to setup multiple DHCP servers.
 Parameter "set" is optional, this one makes use of tagging system in dnsmasq
+Parameter "mode" is optional, please refer to dnsmasq man to see possible settings
 
 ```puppet
-dnsmasq::dhcp { 'dhcp':
+dnsmasq::dhcp { 'my-awesome-subnet':
   set        => 'hadoop0' #optional
+  mode       => 'static' #optional
   dhcp_start => '192.168.1.100',
   dhcp_end   => '192.168.1.200',
   netmask    => '255.255.255.0',
@@ -153,7 +155,7 @@ Will add static A record, this record will always override upstream data
 
 ```puppet
 dnsmasq::address { "example-host-dns.int.lan":
-  ip  => '192.168.1.20',
+  ip => '192.168.1.20',
 }
 ```
 
@@ -266,8 +268,8 @@ Or, to query specific zone
 ```puppet
 dnsmasq::dnsserver { 'forward-zone':
   domain => "dumb.domain.tld",
-  ip => "192.168.39.1",
-  port => '9001', #optional
+  ip     => "192.168.39.1",
+  port   => '9001', #optional
 }
 ```
 

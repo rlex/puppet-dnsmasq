@@ -7,6 +7,7 @@ define dnsmasq::dhcp (
   $lease_time,
   $tag = undef,
   $set = undef,
+  $mode = undef,
 ) {
   $set_real = $set ? {
     undef   => '',
@@ -15,6 +16,10 @@ define dnsmasq::dhcp (
   $tag_real = $tag ? {
     undef   => '',
     default => "tag:${tag},",
+  }
+  $mode_real = $mode ? {
+    undef => '',
+    default => "${mode},"
   }
 
   include dnsmasq

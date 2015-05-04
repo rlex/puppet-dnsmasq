@@ -6,11 +6,12 @@ This is API breaking update! Please consult readme & adjust your configs!
 * [SYNTAX] paramtag is now tag
 * [SYNTAX] paramset is now set
 * [SYNTAX] ::dhcpoption now uses 'option' variable instead of 'name' for option
-* [FEATURE] ::dnsserver now supports "port" variable
+* [FEATURE] ::dnsserver now supports 'port' variable
 * [FEATURE] domain variable can now be passed as array for multiple domains
 * [FEATURE] no_resolv parameter in dnsmasq class
 * [FEATURE] dhcp_leasefile parameter in dnsmasq class
 * [FEATURE] dns_forward_max variable in dnsmasq class
+* [FEATURE] ::dhcp now supports mode => setting
 * [FIX] proper license name
 
 ### 2.6.1

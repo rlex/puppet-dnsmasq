@@ -14,7 +14,7 @@ define dnsmasq::dnsserver (
 
   $port_real = $port ? {
     undef   => '',
-    default => "#${domain}",
+    default => "#${port}",
   }
 
   include dnsmasq

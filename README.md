@@ -138,6 +138,19 @@ dnsmasq::dhcpstatic { 'example-host':
 }
 ```
 
+### DHCP match configuration
+
+Will add a dhcp match. Can be used for all types of options.
+DHCP match will be inserted before 'DHCP option'.
+It can be used multiple times.
+
+
+```puppet
+dnsmasq::dhcpmatch {'example-match':
+  content: 'IPXEBOOT,175'
+}
+```
+
 ### Host record configuration
 
 Will add static A, AAAA (if provided) and PTR record
@@ -228,7 +241,7 @@ dnsmasq::dhcpoption { 'my-awesome-dhcp-option':
   tag     => 'sometag', #optional
 }
 ```
-
+ 
 ### DHCP booting (PXE)
 
 Allows you to setup different PXE servers in different subnets.

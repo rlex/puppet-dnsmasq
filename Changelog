@@ -11,7 +11,8 @@ This is API breaking update! Please consult readme & adjust your configs!
 * [FEATURE] no_resolv parameter in dnsmasq class
 * [FEATURE] dhcp_leasefile parameter in dnsmasq class
 * [FEATURE] dns_forward_max variable in dnsmasq class
-* [FEATURE] ::dhcp now supports mode => setting
+* [FEATURE] ::dhcp now supports mode => setting'
+* [FEATURE] ::dhcpmatch parameter addded.
 * [FIX] proper license name
 
 ### 2.6.1

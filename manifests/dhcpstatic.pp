@@ -14,7 +14,7 @@ define dnsmasq::dhcpstatic (
   include dnsmasq
 
   concat::fragment { "dnsmasq-staticdhcp-${name}":
-    order   => '04',
+    order   => '05',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcpstatic.erb'),
   }

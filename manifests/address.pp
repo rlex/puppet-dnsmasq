@@ -8,7 +8,7 @@ define dnsmasq::address (
   include dnsmasq
 
   concat::fragment { "dnsmasq-staticdns-${name}":
-    order   => "06_${name}",
+    order   => "07_${name}",
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/address.erb'),
   }

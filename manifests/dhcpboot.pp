@@ -22,7 +22,7 @@ define dnsmasq::dhcpboot (
   include dnsmasq
 
   concat::fragment { "dnsmasq-dhcpboot-${name}":
-    order   => '03',
+    order   => '04',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcpboot.erb'),
   }

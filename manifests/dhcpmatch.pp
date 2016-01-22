@@ -8,7 +8,7 @@ define dnsmasq::dhcpmatch (
   $dnsmasq_conffile = $dnsmasq::params::dnsmasq_conffile
 
   concat::fragment { "dnsmasq-dhcpmatch-${name}":
-    order   => '01',
+    order   => '02',
     target  => $dnsmasq_conffile,
     content => template('dnsmasq/dhcpmatch.erb'),
   }

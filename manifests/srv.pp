@@ -15,7 +15,7 @@ define dnsmasq::srv (
   include dnsmasq
 
   concat::fragment { "dnsmasq-srv-${name}":
-    order   => '08',
+    order   => '09',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/srv.erb'),
   }

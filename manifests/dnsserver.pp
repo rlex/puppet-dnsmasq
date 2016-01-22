@@ -20,7 +20,7 @@ define dnsmasq::dnsserver (
   include dnsmasq
 
   concat::fragment { "dnsmasq-dnsserver-${name}":
-    order   => '12',
+    order   => '13',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/dnsserver.erb'),
   }

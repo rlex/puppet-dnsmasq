@@ -12,7 +12,7 @@ define dnsmasq::dhcpoption (
   include dnsmasq
 
   concat::fragment { "dnsmasq-dhcpoption-${name}":
-    order   => '02',
+    order   => '03',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcpoption.erb'),
   }

@@ -5,7 +5,7 @@ define dnsmasq::ptr (
   include dnsmasq
 
   concat::fragment { "dnsmasq-ptr-${name}":
-    order   => '09',
+    order   => '10',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/ptr.erb'),
   }

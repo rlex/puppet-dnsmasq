@@ -5,7 +5,7 @@ define dnsmasq::txt(
   include dnsmasq
 
   concat::fragment { "dnsmasq-txt-${name}":
-    order   => '10',
+    order   => '11',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/txt.erb'),
   }

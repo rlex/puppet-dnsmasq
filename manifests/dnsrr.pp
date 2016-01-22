@@ -13,7 +13,7 @@ define dnsmasq::dnsrr (
   include dnsmasq
 
   concat::fragment { "dnsmasq-dnsrr-${name}":
-    order   => '11',
+    order   => '12',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/dnsrr.erb'),
   }

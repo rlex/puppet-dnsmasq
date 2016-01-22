@@ -13,7 +13,7 @@ define dnsmasq::hostrecord (
   }
 
   concat::fragment { "dnsmasq-hostrecord-${name}":
-    order   => '06',
+    order   => '07',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/hostrecord.erb'),
   }

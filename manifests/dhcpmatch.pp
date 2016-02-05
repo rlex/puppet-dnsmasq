@@ -9,7 +9,7 @@ define dnsmasq::dhcpmatch (
 
   concat::fragment { "dnsmasq-dhcpmatch-${name}":
     order   => '02',
-    target  => $dnsmasq_conffile,
+    target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcpmatch.erb'),
   }
 }

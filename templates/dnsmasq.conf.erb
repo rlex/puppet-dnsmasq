@@ -33,7 +33,7 @@
   ].each do |key_instance|
     [ key_instance, key_instance.gsub('_','-') ].each do |key|
       if @config_hash.include? key
-        self.instance_variable_set("@#{key_instance}".to_sym, config_hash[key])
+        self.instance_variable_set("@#{key_instance}".to_sym, @config_hash[key])
         @config_hash.delete(key)
       end
     end

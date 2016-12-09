@@ -1,0 +1,4 @@
+<% if @content != '' -%>
+<% tag = "#{@paramtag}," if @paramtag -%>
+<%= "pxe-service=x86PC,\"#{@name}\",#{@content}, #{@ipaddress}\n" -%>
+<% end -%>

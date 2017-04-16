@@ -5,7 +5,7 @@ define dnsmasq::dnsserver (
   $domain = undef,
   $port = undef,
 ) {
-  if !is_ip_address($ip) { fail("Expect IP address for ip, got ${ip}") }
+  validate_re($ip, '^\d+.\d+.\d+.\d+(#\d+)?$')
 
   $domain_real = $domain ? {
     undef   => '',

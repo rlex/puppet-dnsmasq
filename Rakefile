@@ -1,7 +1,7 @@
 require 'rake'
+require 'json'
 
 require 'rspec/core/rake_task'
-require 'puppet-lint/tasks/puppet-lint'
 
 require 'puppetlabs_spec_helper/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'

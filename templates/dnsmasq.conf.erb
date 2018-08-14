@@ -66,6 +66,7 @@ listen-address=<%= addr %>
 <% end -%>
 <% end -%>
 <% if @interface -%>
+bind-interfaces
 <% Array(@interface).compact.each do |iface| -%>
 interface=<%= iface %>
 <% end -%>

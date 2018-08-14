@@ -284,7 +284,15 @@ dnsmasq::dnsserver { 'forward-zone':
   port   => '9001', #optional
 }
 ```
-
+And using alternative syntax
+```puppet
+dnsmasq::dnsserver { 'forward-zone-rev':
+  subnet  => '192.168.196.1',
+  netmask => '24',
+  ip      => '192.168.39.1',
+  port    => '9001', #optional
+}
+```
 ### DNS-RR records
 Allows dnsmasq to serve arbitrary records, for example:
 ```puppet

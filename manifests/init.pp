@@ -45,6 +45,21 @@ class dnsmasq (
   $service_ensure           = 'running',
   $strict_order             = true,
   $tftp_root                = '/var/lib/tftpboot',
+  $addresses                = {},
+  $cnames                   = {},
+  $dhcpboots                = {},
+  $dhcpmatches              = {},
+  $dhcpoptions              = {},
+  $dhcps                    = {},
+  $dhcpstatics              = {},
+  $dnsrrs                   = {},
+  $dnsservers               = {},
+  $domains                  = {},
+  $hostrecords              = {},
+  $mxs                      = {},
+  $ptrs                     = {},
+  $srvs                     = {},
+  $txts                     = {},
 ) inherits dnsmasq::params {
 
   ## VALIDATION
@@ -77,6 +92,11 @@ class dnsmasq (
   if undef != $listen_address and !is_ip_address($listen_address) {
     fail("Expect IP address for listen_address, got ${listen_address}")
   }
+
+  ## VALIDATE FOR DEFINES
+  validate_hash($addresses, $cnames, $dhcpboots, $dhcpmatches, $dhcpoptions,
+               $dhcps, $dhcpstatics, $dnsrrs, $dnsservers, $domains,
+               $hostrecords, $mxs, $ptrs, $srvs, $txts)
 
   ## CLASS VARIABLES
 
@@ -162,6 +182,52 @@ class dnsmasq (
       mode   => '0644',
       before => Service['dnsmasq'],
     }
+  }
+
+  if $addresses {
+    create_resources('dnsmasq::address', $addresses)
+  }
+  if $cnames {
+    create_resources('dnsmasq::cname', $cnames)
+  }
+  if $dhcpboots {
+    create_resources('dnsmasq::dhcpboot', $dhcpboots)
+  }
+  if $dhcpmatches {
+    create_resources('dnsmasq::dhcpmatch', $dhcpmatches)
+  }
+  if $dhcpoptions {
+    create_resources('dnsmasq::dhcpoption', $dhcpoptions)
+  }
+  if $dhcps {
+    create_resources('dnsmasq::dhcp', $dhcps)
+  }
+  if $dhcpstatics {
+    create_resources('dnsmasq::dhcpstatic', $dhcpstatics)
+  }
+  if $dnsrrs {
+    create_resources('dnsmasq::dnsrr', $dnsrrs)
+  }
+  if $dnsservers {
+    create_resources('dnsmasq::dnsserver', $dnsservers)
+  }
+  if $domains {
+    create_resources('dnsmasq::domain', $domains)
+  }
+  if $hostrecords {
+    create_resources('dnsmasq::hostrecord', $hostrecords)
+  }
+  if $mxs {
+    create_resources('dnsmasq::mx', $mxs)
+  }
+  if $ptrs {
+    create_resources('dnsmasq::ptr', $ptrs)
+  }
+  if $srvs {
+    create_resources('dnsmasq::srv', $srvs)
+  }
+  if $txts {
+    create_resources('dnsmasq::txt', $txts)
   }
 
   if ! $no_hosts {

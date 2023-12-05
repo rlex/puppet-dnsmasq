@@ -1,16 +1,15 @@
 # Create an dnsmasq cname record (--cname).
+#
+# @param hostname
+#
 define dnsmasq::cname (
-  $hostname,
+  String $hostname,
 ) {
-  validate_slength($name,255)     # hostnames cannot be longer
-  validate_slength($hostname,255) # hostnames cannot be longer
-
   include dnsmasq
 
   concat::fragment { "dnsmasq-cname-${name}":
-    order   => '12',
+    order   => '11',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/cname.erb'),
   }
-
 }

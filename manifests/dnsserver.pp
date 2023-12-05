@@ -1,12 +1,17 @@
 # Configure the DNS server to query sub domains to external DNS servers
 # (--server).
+#
+# @param ip
+#
+# @param domain
+#
+# @param port
+#
 define dnsmasq::dnsserver (
-  $ip,
-  $domain = undef,
-  $port = undef,
+  String $ip,
+  String $domain         = undef,
+  Optional[String] $port = undef,
 ) {
-  if !is_ip_address($ip) { fail("Expect IP address for ip, got ${ip}") }
-
   $domain_real = $domain ? {
     undef   => '',
     default => "/${domain}/",
@@ -20,7 +25,7 @@ define dnsmasq::dnsserver (
   include dnsmasq
 
   concat::fragment { "dnsmasq-dnsserver-${name}":
-    order   => '13',
+    order   => '12',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/dnsserver.erb'),
   }

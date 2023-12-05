@@ -1,12 +1,17 @@
 # Create an dnsmasq mx record (--mx-host).
+#
+# @param mx_name
+#
+# @param hostname
+#
+# @param preference
+#
 define dnsmasq::mx (
   # allow for duplicate "mx-host=<name>,..." entries
-  $mx_name = $name,
-  $hostname = undef,
-  $preference = undef,
+  String $mx_name              = $name,
+  Optional[String] $hostname   = undef,
+  Optional[String] $preference = undef,
 ) {
-  if undef != $preference { validate_re($preference,'^[0-9]+$') }
-
   include dnsmasq
 
   $hostname_real = $hostname ? {
@@ -21,9 +26,8 @@ define dnsmasq::mx (
 
   concat::fragment { "dnsmasq-mx-${name}":
     # prevent "reordering" changes
-    order   => "08_${mx_name}_${hostname_real}_${preference_real}",
+    order   => "07_${mx_name}_${hostname_real}_${preference_real}",
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/mx.erb'),
   }
-
 }

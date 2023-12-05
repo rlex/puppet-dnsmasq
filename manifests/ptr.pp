@@ -1,13 +1,15 @@
 # Create an dnsmasq ptr record (--ptr-record).
+#
+# @param value
+#
 define dnsmasq::ptr (
-  $value,
+  String $value,
 ) {
   include dnsmasq
 
   concat::fragment { "dnsmasq-ptr-${name}":
-    order   => '10',
+    order   => '09',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/ptr.erb'),
   }
-
 }

@@ -1,10 +1,19 @@
 # Create an dnsmasq dhcp boot (PXE) record for customizing network
 # booting (--dhcp-boot).
+#
+# @param file
+#
+# @param tag
+#
+# @param hostname
+#
+# @param bootserver
+#
 define dnsmasq::dhcpboot (
-  $file,
-  $tag   = undef,
-  $hostname   = undef,
-  $bootserver = undef,
+  String $file,
+  Optional[String] $tag        = undef,
+  Optional[String] $hostname   = undef,
+  Optional[String] $bootserver = undef,
 ) {
   $bootserver_real = $bootserver ? {
     undef   => '',
@@ -22,9 +31,8 @@ define dnsmasq::dhcpboot (
   include dnsmasq
 
   concat::fragment { "dnsmasq-dhcpboot-${name}":
-    order   => '04',
+    order   => '03',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/dhcpboot.erb'),
   }
-
 }

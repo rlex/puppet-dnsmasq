@@ -9,8 +9,8 @@
 #
 define dnsmasq::dnsserver (
   String $ip,
-  String $domain         = undef,
-  Optional[String] $port = undef,
+  Optional[String] $domain = undef,
+  Optional[String] $port   = undef,
 ) {
   $domain_real = $domain ? {
     undef   => '',

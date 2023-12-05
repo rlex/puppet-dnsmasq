@@ -1,10 +1,13 @@
 # Create a dnsmasq A,AAAA and PTR record (--host-record).
+#
+# @param ip
+#
+# @param ipv6
+#
 define dnsmasq::hostrecord (
-  $ip,
-  $ipv6 = undef,
+  String $ip,
+  Optional[String] $ipv6 = undef,
 ) {
-  if !is_ip_address($ip) { fail("Expect IP address for ip, got ${ip}") }
-
   include dnsmasq
 
   $ipv6_real = $ipv6 ? {
@@ -13,9 +16,8 @@ define dnsmasq::hostrecord (
   }
 
   concat::fragment { "dnsmasq-hostrecord-${name}":
-    order   => '07',
+    order   => '06',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/hostrecord.erb'),
   }
-
 }

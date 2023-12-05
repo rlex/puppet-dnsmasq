@@ -11,5 +11,5 @@ class { 'dnsmasq':
   no_negcache   => true,
   no_hosts      => true,
   resolv_file   => '/etc/resolv.conf',
-  cache_size    => 1000
+  cache_size    => 1000,
 }

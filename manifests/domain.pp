@@ -1,9 +1,13 @@
 # Create a dnsmasq domain (--domain).
+#
+# @param subnet
+#
+# @param local
+#
 define dnsmasq::domain (
-  $subnet = undef,
-  $local  = false,
+  Optional[String] $subnet = undef,
+  Boolean $local           = false,
 ) {
-  validate_bool($local)
   include dnsmasq
 
   $local_real = $local ? {
@@ -16,9 +20,8 @@ define dnsmasq::domain (
   }
 
   concat::fragment { "dnsmasq-domain-${name}":
-    order   => '06',
+    order   => '05',
     target  => 'dnsmasq.conf',
     content => template('dnsmasq/domain.erb'),
   }
-
 }
